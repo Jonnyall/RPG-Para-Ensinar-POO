@@ -1,6 +1,5 @@
 import java.util.ArrayList;
-import java.util.List;
-//XD
+
 public class Inventory 
     {
     //Esta classe é designada para o inventário dos personagens, ou seja, para os objetos que eles podem carregar e usar durante o jogo.
@@ -8,13 +7,13 @@ public class Inventory
     //Atributos do inventário.
 
     //Os itens que o personagem tem no inventário no momento.
-    private List<Item> items_in;
+    private ArrayList <Item> items_in;
 
     //Construtor da classe.
     public Inventory()
         {
         //Apenas inicializando a lista de itens do inventário.
-        items_in = new ArrayList<Item>();
+        items_in = new ArrayList <Item>();
         }
 
     //Metodos para tratar com inventário.
