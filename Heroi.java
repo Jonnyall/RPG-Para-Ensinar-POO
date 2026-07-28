@@ -52,10 +52,10 @@ public class Heroi extends Personagem implements Updateble
         //Precisamos verificar se o Heroi tem flechas o suficientes para atirar, 1 pelo menos, caso contrário, o Heroi não pode atirar.
         //Também precisamos verificar se o Heroi não está em recarga para dar um novo Tiro de Flecha, caso contrário, o Heroi não pode atacar.
         if (this.Contagem_Flechada == 0
-        && this.inventario_do_heroi.obterItem(new Arrow()) > 0)
+        && this.inventario_do_heroi.quantidadeItemEspecifico(Item.ITM_FLECHA) > 0)
             {
             //Remover uma flecha do inventário.
-            this.inventario_do_heroi.removerItem(new Arrow());
+            this.inventario_do_heroi.removerItem(Item.ITM_FLECHA);
             
             //Iniciar a contagem regressiva para o próximo Tiro de Flecha.
             this.Contagem_Flechada = TEMPO_FLECHADA;

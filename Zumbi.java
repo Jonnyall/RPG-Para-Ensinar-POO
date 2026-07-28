@@ -77,12 +77,20 @@ public class Zumbi extends Inimigo implements Updateble
         
             case ESTADO_PERSEGUINDO:
                 //Se ele estiver perseguindo o personagem (Herói), ele deve tentar se mover em direção ao personagem (Herói).
-                perseguirHero(heroi);
+                perseguirHero(heroi); //Variavel global 
             break;
 
             case ESTADO_MORDENDO:
-                //Se ele estiver performando a mordida, ele não pode se mover, então devemos apenas diminuir o tempo restante da mordida.
-                tempoRestanteMordida--;
+                if (tempoRestanteMordida > 0)
+                    {
+                    //Se ele estiver performando a mordida, ele não pode se mover, então devemos apenas diminuir o tempo restante da mordida.
+                    tempoRestanteMordida--;
+                    }
+                else
+                    {
+                    //Se o tempo da mordida acabou, ele deve voltar para o estado de perseguir o personagem (Herói).
+                    estado = ESTADO_PERSEGUINDO;
+                    }
             break;
             }
         }
