@@ -1,4 +1,4 @@
-public class SolidWall extends MaterialThings 
+public class SolidWall extends EntidadeFisica 
     {
     //Esta classe representa as paredes sólidas, aquelas que não podem ser atravessadas pelos personagens.
 

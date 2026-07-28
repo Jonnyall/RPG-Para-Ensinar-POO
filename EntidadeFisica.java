@@ -1,5 +1,5 @@
 
-public abstract class MaterialThings extends AllThings
+public abstract class EntidadeFisica extends AllThings
     {
     //Esta classe é a classe designada para objetos "físicos", aqueles que ocupam espaço.
 
@@ -12,7 +12,7 @@ public abstract class MaterialThings extends AllThings
     private int h;
 
     //Construtor da classe.
-    public MaterialThings(int x, int y, int w, int h)
+    public EntidadeFisica(int x, int y, int w, int h)
         {
         this.x = x;
         this.y = y;
@@ -21,6 +21,7 @@ public abstract class MaterialThings extends AllThings
         }
 
     //Getters e setters para as variáveis de posição e dimensão.
+    /* 
     public int getX()
         {
         return (x);
@@ -40,25 +41,28 @@ public abstract class MaterialThings extends AllThings
         {
         return (h);
         }
-
+    */
 
     //Metodos para mover o objeto.
-    public void plussX(int plus)
+    public void deslocarEmX(int soma)
         {
-        this.x += plus;
+        this.x += soma;
         }
 
-    public void plussY(int plus)
+    public void deslocarEmY(int soma)
         {
-        this.y += plus;
+        this.y += soma;
         }
 
     //Metodo para verificar se o objeto colidiu com outro.
 
     //Versão 1: Verificar se o objeto colidiu com outro em uma posição específica (x e y).
-    public boolean checkCollision(MaterialThings other, int x, int y)
+    public boolean checarColisao(EntidadeFisica other, int x, int y)
         {
-        if ((x + this.w > other.getX()) && (x < other.getX() + other.getW()) && (y + this.h > other.getY()) && (y < other.getY() + other.getH()))
+        if (this.x > other.x
+            && this.x < other.x + other.w
+            && this.y > other.y
+            && this.y < other.y + other.h)
             {
             return (true);
             }
@@ -69,8 +73,8 @@ public abstract class MaterialThings extends AllThings
         }
 
     //Versão 2: Verificar se o objeto colidiu com outro usando a posição atual do objeto.
-    public boolean checkCollision(MaterialThings other)
+    public boolean checarColisao(EntidadeFisica other)
         {
-        return (checkCollision(other, this.x, this.y));
+        return (checarColisao(other, this.x, this.y));
         }
     }
