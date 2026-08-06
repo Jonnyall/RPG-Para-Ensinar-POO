@@ -1,18 +1,31 @@
-public abstract class Inimigo extends Personagem implements Updateble
+public abstract class Inimigo extends PersonagemQueBatalha
     {
-    //Esta classe representa os inimigos do jogo, aqueles que o personagem (Hero) principal deve enfrentar.
+    // Esta classe representa os inimigos do jogo, aqueles que o personagem (Hero) principal deve enfrentar.
 
-    //Construtor da classe.
-    public Inimigo(String nome, int vida, int ataque, int defesa, int x, int y, int w, int h /*, Sprite sprite*/)
+    // Atributos do inimigo.
+
+    // Os itens que o inimigo pode dropar ao ser derrotado.
+    private Drops[] drops;
+
+    // Construtor da classe.
+    public Inimigo(String nome, int vida, int ataque, int defesa, int sorte, Drops[] drops)
         {
-        //Apenas herdando os atributos do personagem.
-        super(nome, vida, ataque, defesa, x, y, w, h /*, sprite*/);
+        // Atribuindo de classe da classe superior.
+        super(nome, vida, ataque, defesa, sorte);
+        
+        // Configurando os drops do inimigo.
+        this.drops = drops;
         }
 
+    // Declaração do método de atacar o personagem (Heroi), que deve ser implementado por todas as classes filhas de Inimigo.
+    public abstract void atacarHeroi(Heroi heroi);
     
-    //Declaração do método de perseguir o personagem (Hero), que deve ser implementado por todas as classes filhas de Inimigo.
-    public abstract void perseguirHero(Heroi hero);
-
-    //Declaração do método de atacar o personagem (Hero), que deve ser implementado por todas as classes filhas de Inimigo.
-    public abstract void atacarHero(Heroi hero);
+    // Método para "dropar" os itens do inimigo ao serem derrotados.
+    public Drops[] droparItens()
+        {
+        for (int i = 0; i < drops.length; i++)
+            {
+            // Aqui poderia ser implementada uma lógica para determinar se o item será dropado ou não, com base na sorte do inimigo e do herói.
+            }
+        }
     }

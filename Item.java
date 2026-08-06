@@ -1,17 +1,17 @@
-
 public enum Item
     {
-    //Nome String do item, Sprite Assossiado.
-    ITM_OVO("Ovo", "ovo.png"),
-    ITM_CENOURA("Cenoura", "cenoura.png"),
-    ITM_FLECHA("Flecha", "flecha.png"),
-    ITM_DENTEDEVAMPIRO("Dente de Vampiro", "dente_de_vampiro.png");
+    // Nome String do item e a descrição do item.
+    OVO("Ovo", "um ovo de galinha"),
+    CENOURA("Cenoura", "uma cenoura fresca"),
+    CARNE_PODRE("Carne Podre", "Se você comer isso, você vai ficar doente com toda certeza!"),
+    FLECHA("Flecha", "Use-a para atacar inimigos a distância."),
+    DENTEDEVAMPIRO("Dente de Vampiro", "Um troféu que simboliza a vitória sobre um inimigo poderoso."),;
     
-    //Atributos do item.
+    // Atributos do item.
     private final String nome;
     private final String sprite;
 
-    //Construtor do item.
+    // Construtor do item.
     private Item(String nome, String sprite)
         {
         this.nome = nome;

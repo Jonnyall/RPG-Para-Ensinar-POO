@@ -1,36 +1,36 @@
 import java.util.ArrayList;
 
-public class Inventario 
+public class Inventario extends TodasAsCoisas
     {
-    //Esta classe é designada para o inventário dos personagens, ou seja, para os objetos que eles podem carregar e usar durante o jogo.
+    // Esta classe é designada para o inventário dos personagens, ou seja, para os objetos que eles podem carregar e usar durante o jogo.
 
-    //Atributos do inventário.
+    // Atributos do inventário.
 
-    //Os itens que o personagem tem no inventário no momento.
+    // Os itens que o personagem tem no inventário no momento.
     private ArrayList <Item> items;
 
-    //Construtor da classe.
+    // Construtor da classe.
     public Inventario()
         {
-        //Apenas inicializando a lista de itens do inventário.
+        // Apenas inicializando a lista de itens do inventário.
         this.items = new ArrayList <Item>();
         }
 
-    //Metodos para tratar com inventário.
+    // Métodos para lidar com o inventário.
 
-    //Metodo para adicionar um item ao inventário.
+    // Método para adicionar um item ao inventário.
     public void adicionarItem(Item item)
         {
         this.items.add(item);
         }
     
-    //Metodo para obter o número de itens totais no inventário.
+    // Método para obter o número de itens totais no inventário.
     public int quantidadeItens()
         {
         return (this.items.size());
         }
 
-    //Metodo para obter a quantidade de um item específico no inventário.
+    // Método para obter a quantidade de um item específico no inventário.
     public int quantidadeItemEspecifico(Item item)
         {
         int count = 0;
@@ -46,13 +46,11 @@ public class Inventario
         return (count);
         }
 
-    //Metodo para remover um item do inventário.
+    // Método para remover um item do inventário.
     public void removerItem(Item item)
         {
         this.items.remove(item);
         }
-
-    //OBSERVAÇÃO: A IMPLEMENTAÇÃO DESTE CLASSE PODE MUDAR DEVIDO A CLASSE ITEM AINDA NÃO ESTA DEFINIDA, SOMADO O FATO DE QUE "intems_in" PODE VIRAR UM ARRAY.
     }
 
     
