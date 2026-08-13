@@ -16,4 +16,23 @@ public class Drops extends TodasAsCoisas
         this.item = item;
         this.chance = chance;
         }
+
+    // Métodos da classe.
+
+    // Método para sortear o drop do item, com base na chance de dropar.
+    public Item sortearDrop()
+        {
+        // Gerando um número aleatório entre 0 e 100.
+        int numero_aleatorio = (int) (Math.random() * 100);
+        
+        // Verificando se o número aleatório é menor ou igual à chance de dropar.
+        if (numero_aleatorio <= this.chance)
+            {
+            return (this.item); // O item será dropado.
+            }
+        else
+            {
+            return (null); // O item não será dropado.
+            }
+        }
     }

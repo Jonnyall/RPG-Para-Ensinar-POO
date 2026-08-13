@@ -23,6 +23,7 @@ public class PeDeCenoura extends ElementosCenario
 			System.out.println("Você puxou o pé de cenoura e conseguiu uma cenoura boa!");
 
 			// Logica para adicionar a cenoura boa ao inventário do jogador.
+			heroi.getInventario().adicionarItem(Item.Cenoura);
 			}
 		else
 			{

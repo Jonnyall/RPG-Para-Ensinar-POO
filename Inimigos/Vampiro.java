@@ -32,6 +32,22 @@ public class Vampiro extends Inimigo
     public void alternarEmFormaDeMorcego()
         {
         // Aqui poderia ser implementada a lógica para transformar o Vampiro em morcego, aumentando sua sorte e dificultando que ele seja atingido.
+        if (forma_de_morsego)
+            {
+            // Se o Vampiro já está em forma de morcego, ele volta à sua forma normal.
+            forma_de_morsego = false;
+            System.out.println("O Vampiro voltou à sua forma normal.");
+            
+            // Aqui poderia ser implementada a lógica para reduzir a sorte do Vampiro de volta ao normal.
+            }
+        else
+            {
+            // Se o Vampiro não está em forma de morcego, ele se transforma em morcego.
+            forma_de_morsego = true;
+            System.out.println("O Vampiro se transformou em morcego, aumentando sua sorte e dificultando que ele seja atingido.");
+            
+            // Aqui poderia ser implementada a lógica para aumentar a sorte do Vampiro enquanto ele estiver em forma de morcego.
+            }
         }
 
 
@@ -40,5 +56,24 @@ public class Vampiro extends Inimigo
     public void atacarHeroi(Heroi heroi)
         {
         // Aqui poderia ser implementada a lógica de ataque do Vampiro ao herói, considerando os atributos de ataque e defesa.
+
+        // Primeiro se instancia um objeto da classe Dano.
+        Dano _mordida = new Dano(this, 1.0, 1.0);
+
+        // Agora o objeto dano vai interagir com o heroi.
+        int _danoCausado = heroi.receberDano(_mordida);
+        if (_danoCausado != PQB_DANO_DESVIADO)
+            {
+            // O dano foi causado com sucesso.
+            System.out.println("O Vampiro mordeu o heroi e causou " + _danoCausado + " de dano.");
+            }
+        else
+            {
+            // O dano foi desviado.
+            System.out.println("O Vampiro mordeu o heroi, mas o heroi desviou.");
+            }
+
+        // A instancia dano é descartada, pois já cumpriu seu papel de interagir com o heroi.
+        _mordida = null;
         }
     }

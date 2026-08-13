@@ -39,6 +39,9 @@ public class Zumbi extends Inimigo
             // O dano foi desviado.
             System.out.println("O zumbi mordeu o heroi, mas ele desviou.");
             }
+
+        // A instancia dano é descartada, pois já cumpriu seu papel de interagir com o heroi.
+        _dano = null;
         }
     }
 
