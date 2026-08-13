@@ -83,7 +83,7 @@ public class Heroi extends Personagem implements Updateble
 
 
     // Método para se obter o inventário do herói.
-    public Inventario getInventario()
+    public Inventario obterInventario()
         {
         return (this.inventario_do_heroi);
         }

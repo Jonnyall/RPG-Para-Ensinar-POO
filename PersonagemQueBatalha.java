@@ -55,4 +55,28 @@ public abstract class PersonagemQueBatalha extends Personagem
         // Retornando à constante PQB_DANO_DESVIADO para indicar que o dano não acertou.
         return (PQB_DANO_DESVIADO);
         }
+    
+    // Método para o personagem se/ou ser curado.
+    public void curar(int _cura)
+        {
+        // Aqui fica a logica para curar o personagem, aumentando sua vida.
+        }
+
+    // Métodos para multiplicar o ataque.
+    public void multiplicarAtaque(double multiplicador)
+        {
+        this.ataque *= multiplicador;
+        }
+    
+    // Métodos para multiplicar a defesa.
+    public void multiplicarDefesa(double multiplicador)
+        {
+        this.defesa *= multiplicador;
+        }
+
+    // Métodos para multiplicar a sorte.
+    public void multiplicarSorte(double multiplicador)
+        {
+        this.sorte *= multiplicador;
+        }
     }

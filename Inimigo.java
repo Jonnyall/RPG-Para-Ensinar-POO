@@ -33,7 +33,7 @@ public abstract class Inimigo extends PersonagemQueBatalha
             // Se o item não for nulo, significa que ele será dropado, então adicionamos ao inventário do herói.
             if (item != null)
                 {
-                heroi.getInventario().adicionarItem(item);
+                heroi.obterInventario().adicionarItem(item);
                 }
             }
         }

@@ -21,7 +21,7 @@ public class Porta extends ElementoDeCenario
     public void interagir(Heroi heroi)
         {
         //Obtendo o inventário do herói.
-        Inventario inventario = heroi.getInventario();   
+        Inventario inventario = heroi.obterInventario();   
         
         // Verificando se o inventário do herói contém a chave correta para abrir a porta.
         if (inventario.quantidadeItens(chave) > 0)
