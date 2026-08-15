@@ -15,7 +15,7 @@ public class Slime extends Inimigo
         */
        
         // Chamando o construtor da superclasse (Inimigo) para configurar os atributos do Slime.
-        super("Slime", 50, 5, 2, 10, []);
+        super("Slime", 50, 5, 2, 10, new Saque[] {});
         }
 
     // Implementação do método de atacar o personagem (Heroi).

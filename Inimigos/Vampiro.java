@@ -23,7 +23,7 @@ public class Vampiro extends Inimigo
         */
        
         // Chamando o construtor da superclasse (Inimigo) para configurar os atributos do Vampiro.
-        super("Vampiro", 100, 20, 10, 5, new Drops[]{new Drops(Item.DENTEDEVAMPIRO, 1.0)});
+        super("Vampiro", 100, 20, 10, 5, new Saque[] {new Saque(Item.DENTEDEVAMPIRO, 100.00f)});
         }
 
     // Metodo do Vampiro.

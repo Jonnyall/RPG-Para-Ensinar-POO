@@ -3,7 +3,7 @@ public abstract class PersonagemQueBatalha extends Personagem
     // Esta classe representa os personagens que podem lutar no jogo (herói e os monstros). Ela possui atributos como, além de nome, vida, ataque, defesa e sorte. Além de métodos para atacar outro personagem e receber dano.
 
     // Algumas constantes.
-    private static final int PQB_DANO_DESVIADO = -1; // Constante para indicar que o dano foi desviado.
+    public static final int PQB_DANO_DESVIADO = -1; // Constante para indicar que o dano foi desviado.
 
     // Atributos do personagem.
     
@@ -32,6 +32,32 @@ public abstract class PersonagemQueBatalha extends Personagem
         this.defesa = defesa;
         this.sorte = sorte;
         }
+
+    // Métodos getters.
+
+    // -- ATENÇÃO: ESSES MÉTODOS PODEM MUDAR; FALAR COM A PROFESSORA DEPOIS. --
+
+    public int obterVida()
+        {
+        return (this.vida);
+        }
+
+    public int obterAtaque()
+        {
+        return (this.ataque);
+        }
+
+    public int obterDefesa()
+        {
+        return (this.defesa);
+        }
+
+    public int obterSorte()
+        {
+        return (this.sorte);
+        }
+
+    // Métodos da classe.
 
     // Método para o personagem receber danos.
     public int receberDano(Dano _damage)

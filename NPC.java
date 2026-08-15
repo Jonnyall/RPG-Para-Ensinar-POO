@@ -5,16 +5,16 @@ class NPC extends Personagem implements Interagivel
     // Os atributos do NPC.
 
     // A missão que o NPC pode passar para o jogador. Um array, uma vez que uma NPC pode possuir mais de uma missão ao mesmo tempo.
-    private Missao[] missoes;
+    private Missao[] misssoes;
 
     // Construtor da classe.
-    public NPC(String nome, Missao[] missoes)
+    public NPC(String nome, Missao[] misssoes)
         {
         // Atribuindo o nome do NPC.
         super(nome);
 
         // Atribuindo as missões do NPC.
-        this.missoes = missoes;
+        this.misssoes = misssoes;
         }
 		
 	// Métodos de classe.
@@ -29,6 +29,6 @@ class NPC extends Personagem implements Interagivel
         // Lógica para interagir com o NPC, como iniciar uma conversa ou aceitar uma missão.
         System.out.println("Você está interagindo com o NPC: " + this.obterNome());
         
-        /*LOGICA de mostra as quests disponíveis */
+        /*LOGICA de mostra as quests disponíveis*/
         }
     }

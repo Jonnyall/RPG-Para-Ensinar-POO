@@ -1,4 +1,4 @@
-public class Placa extends ElementoDeCenario
+public class Placa extends ElementosCenario
     {
     // Esta classe representa uma placa de cenário, que pode conter informações ou instruções para o jogador.
 

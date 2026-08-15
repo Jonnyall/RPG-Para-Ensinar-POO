@@ -1,4 +1,4 @@
-public class Drops extends TodasAsCoisas
+public class Saque extends TodasAsCoisas
     {
     // Esta classe representa os drops que os inimigos podem soltar ao serem derrotados.
 
@@ -8,10 +8,10 @@ public class Drops extends TodasAsCoisas
     private Item item;
 
     // A chance de dropar o item, em %.
-    private boolean chance;
+    private float chance;
 
     // Construtor da classe.
-    public Drops(Item item, boolean chance)
+    public Saque(Item item, float chance)
         {
         this.item = item;
         this.chance = chance;
@@ -20,10 +20,10 @@ public class Drops extends TodasAsCoisas
     // Métodos da classe.
 
     // Método para sortear o drop do item, com base na chance de dropar.
-    public Item sortearDrop()
+    public Item sortearSaque()
         {
         // Gerando um número aleatório entre 0 e 100.
-        int numero_aleatorio = (int) (Math.random() * 100);
+        int numero_aleatorio = (int) (Math.random() *100);
         
         // Verificando se o número aleatório é menor ou igual à chance de dropar.
         if (numero_aleatorio <= this.chance)

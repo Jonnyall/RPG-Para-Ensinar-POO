@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Heroi extends Personagem implements Updateble
+public class Heroi extends PersonagemQueBatalha
     {
     // Esta classe representa o personagem principal do jogo, aquele que o jogador controla.
 
@@ -82,12 +82,19 @@ public class Heroi extends Personagem implements Updateble
         }
 
 
-    // Método para se obter o inventário do herói.
-    public Inventario obterInventario()
+    // Método para lidar com o inventário do herói.
+
+    // Método para adicionar um item ao inventário do herói.
+    public void adicionarItemAoInventario(Item item)
         {
-        return (this.inventario_do_heroi);
+        this.inventario_do_heroi.adicionarItem(item);
         }
 
+    // Método para verificar se o herói possui um item específico no inventário.
+    public boolean possuiItemNoInventario(Item item)
+        {
+        return (this.inventario_do_heroi.quantidadeItemEspecifico(item) > 0);
+        }
     
     // ---- ATENÇÂO OUD DÚVIDA: O controle de missões do herói deveria ficar na classe Heroi? Ou na classe NPC? Ou em uma outra classe que gerencie as missões do jogo? 
 

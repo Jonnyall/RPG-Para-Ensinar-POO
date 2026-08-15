@@ -18,7 +18,7 @@ public class Caverinha extends Inimigo
         */
        
         // Chamando o construtor da superclasse (Inimigo) para configurar os atributos do Caverinha.
-        super("Caverinha", 30, 5, 2, 10, new Drops[]{new Drops(Item.FLECHA, 0.3)});
+        super("Caverinha", 30, 5, 2, 10, new Saque[] {new Saque(Item.FLECHA, 30.00f)});
         }
 
     // Implementação do método de atacar o personagem (Heroi).
@@ -29,7 +29,7 @@ public class Caverinha extends Inimigo
 
         // O inimigo Caverinha irá alternar entre atacar com sua adaga velha e atirar flechas.
         // 60% de chance de atacar com a adaga velha e 40% de chance de atirar flechas.
-        int chance_de_ataque = (int) (Math.random() * 100);
+        int chance_de_ataque = (int) (Math.random() *100);
 
         // Declarando a instancia da classe Dano fora do if, para que ela possa ser usada em ambos os casos.
         Dano _dano;
@@ -39,7 +39,7 @@ public class Caverinha extends Inimigo
             // O Caverinha escolheu atacar com sua adaga velha.
             _dano = new Dano(this, 1.0, 1.0);
             int _danoCausado = heroi.receberDano(_dano);
-            if (_danoCausado != PQB_DANO_DESVIADO)
+            if (_danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
                 {
                 // O dano foi causado com sucesso.
                 System.out.println("O Caverinha atacou o heroi com sua adaga velha e causou " + _danoCausado + " de dano.");
@@ -55,7 +55,7 @@ public class Caverinha extends Inimigo
             // O Caverinha escolheu atirar flechas.
             _dano = new Dano(this, 1.5, 0.80); // Ataque mais forte e menos preciso.
             int _danoCausado = heroi.receberDano(_dano);
-            if (_danoCausado != PQB_DANO_DESVIADO)
+            if (_danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
                 {
                 // O dano foi causado com sucesso.
                 System.out.println("O Caverinha atirou uma flecha no heroi e causou " + _danoCausado + " de dano.");

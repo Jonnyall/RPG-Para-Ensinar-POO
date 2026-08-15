@@ -37,7 +37,9 @@ public class Dano extends TodasAsCoisas
 
         // Se a razão for maior que 1, o dano acerta.
         if (_razao >= 1.0)
+            {
             return (true);
+            }
         // Se a razão for menor que 1, o dano tem uma chance de não acertar.
         else
             {
@@ -53,17 +55,18 @@ public class Dano extends TodasAsCoisas
             }
         }
     
-    // Método para calcular o dano que o objeto dano irá causar.
-    public int calcularDano(int defesaAlvo)
-        {
-        // Calculando o dano que o objeto dano vai causar, levando em consideração a defesa do alvo.
-        double _dano = this.criador.obterAtaque() * this.porcentagemForca;
-        _dano = (_dano*_dano) / (defesaAlvo + _dano +0.0001); //Apenas para evitar divisão por zero, caso a defesa seja zero.
+    
+        // Método para calcular o dano que o objeto dano irá causar.
+        public int calcularDano(int defesaAlvo)
+            {
+            // Calculando o dano que o objeto dano vai causar, levando em consideração a defesa do alvo.
+            double _dano = this.criador.obterAtaque() * this.porcentagemForca;
+            _dano = (_dano*_dano) / (defesaAlvo + _dano +0.0001); //Apenas para evitar divisão por zero, caso a defesa seja zero.
 
-        // Arredondando o dano causado para o inteiro mais próximo.
-        int _dint = (int) Math.round(_dano);
+            // Arredondando o dano causado para o inteiro mais próximo.
+            int _dint = (int) Math.round(_dano);
 
-        // Retornando o dano causado.
-        return (_dint);
-        }
+            // Retornando o dano causado.
+            return (_dint);
+            }
     }

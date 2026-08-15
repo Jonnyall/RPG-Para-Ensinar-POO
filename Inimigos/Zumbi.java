@@ -17,7 +17,7 @@ public class Zumbi extends Inimigo
                 - Carne Podre (chance de 50%)
         */
     
-        super("Zumbi", 50, 10, 5, 0, new Drops[]{new Drops(Item.CARNE_PODRE, 0.5)});
+        super("Zumbi", 50, 10, 5, 0, new Saque[] {new Saque(Item.CARNE_PODRE, 50.00f)});
         }
 
     // Implementação do método de atacar o personagem (Hero), que deve ser implementado por todas as classes filhas de Inimigo.

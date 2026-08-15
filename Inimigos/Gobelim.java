@@ -19,7 +19,7 @@ public class Gobelim extends Inimigo
         */
        
         // Chamando o construtor da superclasse (Inimigo) para configurar os atributos do Gobelim.
-        super("Gobelim", 40, 7, 3, 8, new Drops[]{new Drops(Item.BOMBA, 0.2), new Drops(Item.FLECHA, 0.05)});
+        super("Gobelim", 40, 7, 3, 8, new Saque[] {new Saque(Item.BOMBA, 0.20f), new Saque(Item.FLECHA, 5.00f)});
         }
 
     // Implementação do método de atacar o personagem (Heroi).

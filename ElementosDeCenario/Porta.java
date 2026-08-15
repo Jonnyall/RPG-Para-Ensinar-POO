@@ -1,4 +1,4 @@
-public class Porta extends ElementoDeCenario
+public class Porta extends ElementosCenario
     {
     // Esta classe serve para representar as portas. Elementos do cenário que vão permitir a passagem do herói apenas se ele possuir uma chave correta em seu inventário.
 	
@@ -19,12 +19,9 @@ public class Porta extends ElementoDeCenario
     // Verifica se o jogador possui a chave correta em seu inventário para abrir a porta.
     @Override
     public void interagir(Heroi heroi)
-        {
-        //Obtendo o inventário do herói.
-        Inventario inventario = heroi.obterInventario();   
-        
+        {        
         // Verificando se o inventário do herói contém a chave correta para abrir a porta.
-        if (inventario.quantidadeItens(chave) > 0)
+        if (heroi.possuiItemNoInventario(chave))
             {
             // O herói possui a chave correta. A porta pode ser aberta.
             System.out.println("Você usou a chave correta para abrir a porta!");

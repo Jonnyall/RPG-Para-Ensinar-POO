@@ -1,4 +1,4 @@
-public abstract class Personagem extends TodasAscoisas
+public abstract class Personagem extends TodasAsCoisas
     {
     // Esta classe é a classe designada para os personagens do jogo, sejam eles jogadores ou NPCs ou até monstros.
     
@@ -19,6 +19,6 @@ public abstract class Personagem extends TodasAscoisas
 	// Apenas um método para se reaver o nome do personagem.
 	public String obterNome()
 		{
-		return(this.noem);
+		return(this.nome);
 		}
     }
