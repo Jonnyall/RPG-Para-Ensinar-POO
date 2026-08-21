@@ -137,6 +137,12 @@ public class Heroi extends PersonagemQueBatalha
             }
         }
 
+    // Método para cancelar a missão atual do Herói.
+    public void cancelaMissaoAtual()
+        {
+        this.missao_atual = null;
+        }
+
     // Método para verificar se uma dada missão já foi completada.
     public boolean verificarMissaoCompletada(Missao missao)
         {
@@ -171,7 +177,7 @@ public class Heroi extends PersonagemQueBatalha
     public boolean possuiRequisitosMissao(Missao missao)
         {
         // Obtendo os requisitos da missão.
-        return( missao.possuiRecursos(this) );
+        return( missao.possuiRecursosSuficientes(this) );
         }
 
     // Método para mudar a localidade atual do herói.

@@ -49,6 +49,12 @@ public class NPC extends Personagem implements Interagivel
         return (this.misssoes[ numere_da_missao]);
         }
 
+    // Método para passar a missão para o heroi.
+    public void passarMissao(int numere_da_missao, Heroi heroi)
+        {
+        
+        }
+
     // Método para "perguntar" se a NPC possui missões.
     public boolean possueMissoes()
         {

@@ -88,8 +88,14 @@ public enum Missao
         return (pre_missaos);
         }
 
+    // Método para verificar se a missão tem premissões.
+    public boolean possuiPreMissoes()
+        {
+        return( pre_missaos != null || pre_missaos.length > 0);
+        }
+
     // Método para verificar se o herói tem todos os requisitos de uma missão.
-    public boolean possuiRecursos(Heroi heroi)
+    public boolean possuiRecursosSuficientes(Heroi heroi)
         {
         for (Map.Entry<Item, Integer> req : this.requisitos.entrySet() ) 
             {
@@ -109,8 +115,7 @@ public enum Missao
     
     // Método para avaliar o estado de disponibilidade da missão.
     public String avaliarDisponibilidade(Heroi heroi)
-        {
-        
+        { 
         //O Herói já cumpriu a missão?
         if (heroi.verificarMissaoCompletada(this))
             {
@@ -143,6 +148,33 @@ public enum Missao
             }
         }
     
+    // Método para obter a informação por que o herói não pode aceitar uma determinada missão.
+    public String avaliarIndisponibilidadeObterInfo(Heroi heroi)
+        {
+        String _disponibilidade = avaliarDisponibilidade( heroi);
+        
+        // Primeiro verificando se a missão está indisponível e se a missão tem prequesitos.
+        if ( !_disponibilidade.equals("Disponível") )
+            {
+            // Obtendo as missões que são pre requisitos.
+            
+            String _saida = "O herói não pode aceitar essa missão. Pois ele precisa completar antes, ele precisa completar as missões: ";
+
+            for(int i = 0; i < this.pre_missaos.length -1; i++)
+                {
+                _saida += this.pre_missaos[i].obterNome() +", ";
+                }
+            _saida += this.pre_missaos[this.pre_missaos.length -1].obterNome() +".";
+
+            //retortnando a informação.
+            return( _saida);
+            }
+        else
+            {
+            return ("A Missão não é um caso de \"Missão Indiponível\".");
+            }
+        }
+
     // Método para obter a quantidade necessária de um item específico.
     public int obterQuantidadeNecessaria(Item item)
         {

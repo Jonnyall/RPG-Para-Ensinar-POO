@@ -1,6 +1,7 @@
 package src;
 
 import java.util.Scanner;
+
 import src.ElementosDeCenario.*;
 
 public class Game
@@ -86,7 +87,42 @@ public class Game
     // (Bloco Estático)
     static
         {
-        //  Aqui será implementada a parte de adicionar interativos pelas localidades.
+        // Aqui será implementada a parte de adicionar interativos pelas localidades.
+
+        // O diário do herói no quarto dele.
+        GM_Localidades.QUARTO_DO_HEROI.retornar().configurarInteragiveis(new Interagivel[]{
+            new Livro(
+            "Meu diário",
+            "sobre a escrivaninha no quarto",
+            "anotações pessoais",
+            """
+            Se alguém estiver lendo isto, provavelmente já descobriu que não sou muito bom em manter um diário.
+
+            Ainda assim, há algumas coisas que preciso registrar.
+
+            Este mundo é estranho. Há pessoas, monstros, cidades, missões e histórias acontecendo ao mesmo tempo. Tudo parece ter seu próprio lugar e sua própria função. Alguns vivem suas próprias vidas, outros aparecem apenas para nos entregar uma missão, e há aqueles que parecem existir apenas para tornar a nossa jornada um pouco mais difícil.
+
+            Às vezes me pergunto quem decidiu que tudo deveria funcionar dessa maneira.
+
+            Quem criou as regras?
+            Quem decidiu o que cada pessoa pode fazer?
+            Quem determinou que alguns de nós seriam capazes de lutar, enquanto outros apenas conversariam?
+
+            Talvez essas perguntas não tenham importância.
+
+            Talvez exista alguém do outro lado observando tudo isso.
+
+            Se existir...
+
+            Olá.
+
+            Espero que esteja se divertindo.
+
+            E, se você chegou até aqui, talvez seja porque resolveu olhar um pouco mais de perto para este mundo. Então continue. Há muito mais acontecendo por trás dele do que parece.
+
+            — Herói
+            """)
+        });
 
         // O taberneiro na taberna.
         GM_Localidades.TABERNA.retornar().configurarInteragiveis(new Interagivel[]{
@@ -96,6 +132,7 @@ public class Game
         
         // O pé de cenoura na fazendinha.
         GM_Localidades.FAZENDINHA_DO_TABERNEIRO.retornar().configurarInteragiveis(new Interagivel[]{
+            new PuleiroDeGalinha(),
             new PeDeCenoura()
         });
 
@@ -161,33 +198,61 @@ public class Game
         // Configuração dos diálogos do Taberneiro.
         NPC taberneiro = GM_NPCs.TABERNEIRO.retornar();
 
-       // Fala padrão
+        // Fala padrão.
         taberneiro.configuraDialogoPadrao(
-            "Bom dia, bravo herói. Espero que os aposentos da minha taverna tenham sido de seu agrado. Então, deseja seguir para a floresta? Não costumo revelar isso a qualquer um, mas há uma saída pelos fundos da taverna que serve como um atalho  para quem deseja chegar até lá. Eu ficaria feliz em lhe entregar a chave, permitindo que siga livremente para a floresta... porém, preciso de sua ajuda com alguns afazeres aqui na taverna. O que me diz? Se me ajudar, entregarei a chave logo em seguida. Temos um trato?"
+            """
+            Bom dia, bravo herói.
+            
+            Espero que os aposentos da minha taverna tenham sido de seu agrado. 
+            
+            Então, deseja seguir para a floresta? Não costumo revelar isso a qualquer um, mas há uma saída pelos fundos da taverna que serve como um atalho para quem deseja chegar até lá rapidamente. Eu ficaria feliz em lhe entregar a chave, permitindo que siga livremente para a floresta... porém, preciso de sua ajuda com alguns afazeres aqui na taverna. 
+            
+            Se me ajudar, entregarei a chave logo em seguida. 
+            
+            Que me diz? Temos um trato?
+            """
         );
 
         // Se estiver cumprindo a missão 1 ou 2
         taberneiro.adicionarRegraArvoreDecisao(
             h -> h.obterMissaoAtual() == Missao.COLETAR_OVOS || h.obterMissaoAtual() == Missao.COLETAR_CENOURAS,
-            "Bem... espero que você tenha sucesso em me ajudar. De tal forma, eu poderei te ajudar em seu caminho."
+            """
+            Bem... Espero que você tenha sucesso em me ajudar. De tal forma, eu poderei te ajudar em seu caminho.
+            """
         );
 
         // Se já cumpriu a missão 1 e 2, mas ainda não aceitou a terceira
         taberneiro.adicionarRegraArvoreDecisao(
             h -> h.verificarMissoesCompletadas(new Missao[]{Missao.COLETAR_CENOURAS, Missao.COLETAR_OVOS}) && h.obterMissaoAtual() != Missao.GELATINA_SECRETA,
-            "Bem... preciso da sua ajuda em algo bastante secreto. Minhas irresistíveis gelatinas são feitas a partir de Slimes que mantenho escondidos no galpão da taverna. Vou abrir a porta para que você possa entrar. Por favor, ajude-me a derrotar alguns Slimes — assim poderei preparar mais da minha deliciosa gelatina."
+            """
+            Bem... preciso da sua ajuda em algo bastante secreto. 
+            
+            Minhas irresistíveis gelatinas são feitas a partir de Slimes que mantenho escondidos no galpão da taverna. Vou abrir a porta para que você possa entrar lá. 
+            
+            Por favor, ajude-me a derrotar alguns Slimes — assim poderei preparar mais da minha deliciosa gelatina.
+            """
         );
 
         // Enquanto a missão três estiver aceita
         taberneiro.adicionarRegraArvoreDecisao(
             h -> h.obterMissaoAtual() == Missao.GELATINA_SECRETA,
-            "Então... já conseguiu lidar com os Slimes? Por favor, não revele a ninguém o meu ingrediente secreto."
+            """
+            Então... 
+            
+            Já conseguiu lidar com os Slimes? Por favor, não revele a ninguém o meu ingrediente secreto.
+            """
         );
 
         // Quando todas as missões estiverem completas
         taberneiro.adicionarRegraArvoreDecisao(
             h -> h.verificarMissoesCompletadas(new Missao[]{Missao.COLETAR_OVOS, Missao.COLETAR_CENOURAS, Missao.GELATINA_SECRETA}),
-            "Obrigado pela sua ajuda, herói. Agora que você possui as chaves para a saída dos fundos, acredito que terá grande sucesso em sua jornada. Ainda assim, permaneça atento — o caminho à frente guarda perigos inesperados."
+            """
+            Obrigado pela sua ajuda, herói. 
+            
+            Agora que você possui as chaves para a saída dos fundos, acredito que terá grande sucesso em sua jornada. 
+            
+            Ainda assim, permaneça atento — o caminho à frente guarda perigos inesperados.
+            """
         );
     }
 
@@ -218,6 +283,9 @@ public class Game
 
         // Printando as opções de interação para o jogador.
 
+        // Pulando uma linha.
+        System.out.println("\n");
+
         // Apenas mostrando essa informação se existirem NPCs na sala.
         if (_npc_na_localidade_N > 0)
             {
@@ -241,7 +309,7 @@ public class Game
 
             for(i = 0; i < _elc_na_localidade_N; i++)
                 {
-                System.out.println(i + " - " +_elc_na_localidade[i].obterNome() +"\n" +"\t\t" +_elc_na_localidade[i].obterDescricao());
+                System.out.println("\t" +i + " - " +_elc_na_localidade[i].obterNome() +"\n" +"\t\t" +_elc_na_localidade[i].obterDescricao());
                 }
             
             System.out.println("\n");
@@ -428,29 +496,92 @@ public class Game
 
                         Missao missao_olhada = GM_NPC_Agora.obterMissao(indiceNPC);
 
-                        String _entrada = "";
+                        // Avaliando a missão.
+                        String missao_olhada_estado = missao_olhada.avaliarDisponibilidade(GM_Heroi);
 
-                        while (!(_entrada.equalsIgnoreCase("Voltar") || _entrada.equalsIgnoreCase("Aceitar")))
+                        // Se o Herói já possui uma missão em curso e está tentando pegar outra.
+                        if (GM_Heroi.obterMissaoAtual() != null && GM_Heroi.obterMissaoAtual() != missao_olhada)
                             {
-                            // Printando a missão até o usuário fazer uma escolha possível.
-                            missao_olhada.desenhar();
+                            System.out.println("O herói não pode pegar outra missão enquanto estiver em andamento com outra.");
+                            }
+                        // Se a missão está indisponível.
+                        else if (missao_olhada_estado.equalsIgnoreCase("Indisponível"))
+                            {
+                            System.out.println(missao_olhada.avaliarIndisponibilidadeObterInfo(GM_Heroi));
+                            }
+                        else
+                            {
+                            // Então resta apenas duas possibilidades.
+                            // Ou o herói está tentando pegar uma nova missão, ou o herói está visualizando uma missão que está em curso.
+                            boolean  _tentando_nova_missao = (GM_Heroi.obterMissaoAtual() == null);
 
-                            System.out.println("\nAceitar/Voltar?\n");
+                            // Também deve ser avaliado se o herói já possui todos os itens que a missão exige.
+                            boolean _possue_todos_requisitos = (GM_Heroi.possuiRequisitosMissao(missao_olhada));
 
-                            _entrada = GM_Scanner.nextLine();
-                            if (_entrada.equalsIgnoreCase("Voltar"))
+                            // Apenas uma variavel para ficar "preso no loop"
+                            boolean _resposta_valida = false;
+
+                            while (!_resposta_valida)
                                 {
-                                //Apenas Voltando para o estado anterior. (falando com a NPC).
-                                }
-                            else if (_entrada.equalsIgnoreCase("Aceitar"))
-                                {
-                                // Aceitando a quest.
-                                GM_Heroi.aceitaMissao(missao_olhada);
-                                }
-                            else
-                                {
-                                //Opisão invalida.
-                                System.out.println("Opção inválida!");
+                                // Printando a missão até o usuário fazer uma escolha possível.
+                                missao_olhada.desenhar();
+
+                                // Se o Herói está tentando aceitar uma nova missão, então só se pode existir duas opções: "Aceitar" ou "Voltar".
+                                if (_tentando_nova_missao)
+                                    {
+                                    System.out.println("\nAceitar/Voltar?\n");
+                                    }
+                                else
+                                    {
+                                    // Se o Herói não possui todos os requisitos, as opções possíveis são "Cancelar" ou "Voltar".
+                                    if (! _possue_todos_requisitos)
+                                        {
+                                        System.out.println("\nCancelar/Voltar?\n");
+                                        }
+                                    // Se o Herói possui todos os requisitos, as opções possíveis são "Completar", "Cancelar" ou "Voltar".
+                                    else 
+                                        {
+                                        System.out.println("\nCompletar/Cancelar/Voltar?\n");
+                                        }
+                                    }
+
+                                // Capturando a resposta do usuário à escolha da opção de missões.
+                                String _entrada = GM_Scanner.nextLine();
+
+                                if (_entrada.equalsIgnoreCase("Voltar"))
+                                    {
+                                    //Apenas Voltando para o estado anterior. (falando com a NPC).
+                                    
+                                    _resposta_valida = true;
+                                    }
+                                else if (_entrada.equalsIgnoreCase("Aceitar") && _tentando_nova_missao)
+                                    {
+                                    // Aceitando a missao.
+                                    GM_Heroi.aceitaMissao(missao_olhada);
+
+                                    _resposta_valida = true;
+                                    }
+                                else if (_entrada.equalsIgnoreCase("Cancelar") && !_tentando_nova_missao && !_possue_todos_requisitos)
+                                    {
+                                    // Cancelando a missão atual.
+                                    GM_Heroi.cancelaMissaoAtual();
+
+                                    _resposta_valida = true;
+                                    }
+                                else if (_entrada.equalsIgnoreCase("Completar") && !_tentando_nova_missao && _possue_todos_requisitos)
+                                    {
+                                    // Completando a missão atual.
+                                    GM_Heroi.completarMissao(missao_olhada);
+
+                                    _resposta_valida = true;
+                                    }
+                                else
+                                    {
+                                    //Opisão invalida.
+                                    System.out.println("Opção inválida!");
+
+                                    _resposta_valida = false;
+                                    }
                                 }
                             }
                         }
