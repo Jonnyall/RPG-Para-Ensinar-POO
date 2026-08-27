@@ -214,11 +214,11 @@ public class Heroi extends PersonagemQueBatalha
 
             for(int i = 0; i < this.missao_atual.obterNumeroTipoRequisitos(); i++)
                 {
-                Item _item = this.missao_atual.obterTipoRequisitoItem(i);
-                int _quant = this.possuiItemNoInventarioQuantidade(_item);
-                int _quant_total = this.missao_atual.obterTipoRequisitoQuantidade(i);
+                Item item = this.missao_atual.obterTipoRequisitoItem(i);
+                int quant = this.possuiItemNoInventarioQuantidade(item);
+                int quant_total = this.missao_atual.obterTipoRequisitoQuantidade(i);
 
-                System.out.println("\t" +_item.obterNome() +"\t\t - " +_quant +"/" +_quant_total);
+                System.out.println("\t" +item.obterNome() +"\t\t - " +quant +"/" +quant_total);
                 }
             }
 

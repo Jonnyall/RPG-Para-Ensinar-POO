@@ -62,11 +62,11 @@ public class Dano extends TodasAsCoisas
         public int calcularDano(int defesaAlvo)
             {
             // Calculando o dano que o objeto dano vai causar, levando em consideração a defesa do alvo.
-            double _dano = this.criador.obterAtaque() * this.porcentagemForca;
-            _dano = (_dano*_dano) / (defesaAlvo + _dano +0.0001); //Apenas para evitar divisão por zero, caso a defesa seja zero.
+            double dano = this.criador.obterAtaque() * this.porcentagemForca;
+            dano = (dano*dano) / (defesaAlvo + dano +0.0001); //Apenas para evitar divisão por zero, caso a defesa seja zero.
 
             // Arredondando o dano causado para o inteiro mais próximo.
-            int _dint = (int) Math.round(_dano);
+            int _dint = (int) Math.round(dano);
 
             // Retornando o dano causado.
             return (_dint);

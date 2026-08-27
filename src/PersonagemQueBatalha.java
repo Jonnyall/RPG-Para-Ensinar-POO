@@ -70,13 +70,13 @@ public abstract class PersonagemQueBatalha extends Personagem
         if (_acertou)   
             {
             // Calculando o dano que o objeto dano vai causar.
-            int _dano = _damage.calcularDano(this.defesa);
+            int dano = _damage.calcularDano(this.defesa);
 
             // Diminuindo a vida do personagem.
-            this.vida -= _dano;
+            this.vida -= dano;
 
             // Retornando o valor do dano causado.
-            return (_dano);
+            return (dano);
             }
 
         // Retornando à constante PQB_DANO_DESVIADO para indicar que o dano não acertou.

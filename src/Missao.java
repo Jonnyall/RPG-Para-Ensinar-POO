@@ -158,16 +158,16 @@ public enum Missao
             {
             // Obtendo as missões que são pre requisitos.
             
-            String _saida = "O herói não pode aceitar essa missão. Pois ele precisa completar antes, ele precisa completar as missões: ";
+            String resposta = "O herói não pode aceitar essa missão. Pois ele precisa completar antes, ele precisa completar as missões: ";
 
             for(int i = 0; i < this.pre_missaos.length -1; i++)
                 {
-                _saida += this.pre_missaos[i].obterNome() +", ";
+                resposta += this.pre_missaos[i].obterNome() +", ";
                 }
-            _saida += this.pre_missaos[this.pre_missaos.length -1].obterNome() +".";
+            resposta += this.pre_missaos[this.pre_missaos.length -1].obterNome() +".";
 
             //retortnando a informação.
-            return( _saida);
+            return( resposta );
             }
         else
             {

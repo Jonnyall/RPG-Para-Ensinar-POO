@@ -35,12 +35,12 @@ public class Gobelim extends Inimigo
         // Aqui poderia ser implementada a lógica de ataque do Gobelim ao herói, considerando os atributos de ataque e defesa.
 
         // O inimigo Gobelim irá atacar com uma pequena faca.
-        Dano _dano = new Dano(this, 1.2, 1.0); // Ataque mais forte e preciso.
-        int _danoCausado = heroi.receberDano(_dano);
-        if (_danoCausado != PQB_DANO_DESVIADO)
+        Dano dano = new Dano(this, 1.2, 1.0); // Ataque mais forte e preciso.
+        int danoCausado = heroi.receberDano(dano);
+        if (danoCausado != PQB_DANO_DESVIADO)
             {
             // O dano foi causado com sucesso.
-            System.out.println("O Gobelim atacou o heroi com sua pequena faca e causou " + _danoCausado + " de dano.");
+            System.out.println("O Gobelim atacou o heroi com sua pequena faca e causou " + danoCausado + " de dano.");
             }
         else
             {

@@ -64,7 +64,7 @@ public class Localidade extends TodasAsCoisas
             }
         
         // Lista temporária.
-        List <NPC> _lista_temporaria = new ArrayList<>();
+        List <NPC> lista_temporaria = new ArrayList<>();
         
         for (int i = 0; i < this.interagiveis.length; i++)
             {
@@ -72,12 +72,12 @@ public class Localidade extends TodasAsCoisas
             if (this.interagiveis[i] != null && this.interagiveis[i] instanceof NPC)
                 {
                 // Fazendo a conversão.
-                _lista_temporaria.add( (NPC) this.interagiveis[i] );
+                lista_temporaria.add( (NPC) this.interagiveis[i] );
                 }
             }
 
         // retornando só o array tipado.
-        return( _lista_temporaria.toArray( new NPC[0]) );
+        return( lista_temporaria.toArray( new NPC[0]) );
         }
 
     // Método para se obter ElementosCenario.
@@ -90,7 +90,7 @@ public class Localidade extends TodasAsCoisas
             }
         
         // Lista temporária.
-        List<ElementosCenario> _lista_temporaria = new ArrayList<>();
+        List<ElementosCenario> lista_temporaria = new ArrayList<>();
         
         for (int i = 0; i < this.interagiveis.length; i++)
             {
@@ -98,12 +98,12 @@ public class Localidade extends TodasAsCoisas
             if (this.interagiveis[i] != null && this.interagiveis[i] instanceof ElementosCenario)
                 {
                 // Fazendo a conversão.
-                _lista_temporaria.add((ElementosCenario) this.interagiveis[i]);
+                lista_temporaria.add((ElementosCenario) this.interagiveis[i]);
                 }
             }
 
         // Retornando só o array tipado.
-        return _lista_temporaria.toArray(new ElementosCenario[0]);
+        return lista_temporaria.toArray(new ElementosCenario[0]);
         }
 
 

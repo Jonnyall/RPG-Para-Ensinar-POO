@@ -31,14 +31,14 @@ public class Zumbi extends Inimigo
     public void atacarHeroi(Heroi heroi)
         {
         // Primeiro se instancia um objeto da classe Dano.
-        Dano _dano = new Dano(this, 1.0, 1.0);
+        Dano dano = new Dano(this, 1.0, 1.0);
 
         // Agora o objeto dano vai interagir com o heroi.
-        int _danoCausado = heroi.receberDano(_dano);
-        if (_danoCausado != PQB_DANO_DESVIADO)
+        int danoCausado = heroi.receberDano(dano);
+        if (danoCausado != PQB_DANO_DESVIADO)
             {
             // O dano foi causado com sucesso.
-            System.out.println("O zumbi mordeu o heroi e causou " + _danoCausado + " de dano.");
+            System.out.println("O zumbi mordeu o heroi e causou " + danoCausado + " de dano.");
             }
         else
             {
@@ -47,7 +47,7 @@ public class Zumbi extends Inimigo
             }
 
         // A instancia dano é descartada, pois já cumpriu seu papel de interagir com o heroi.
-        _dano = null;
+        dano = null;
         }
     }
 

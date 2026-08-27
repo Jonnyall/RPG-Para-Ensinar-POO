@@ -39,17 +39,17 @@ public class Caverinha extends Inimigo
         int chance_de_ataque = (int) (Math.random() *100);
 
         // Declarando a instancia da classe Dano fora do if, para que ela possa ser usada em ambos os casos.
-        Dano _dano;
+        Dano dano;
 
         if (chance_de_ataque < 60)
             {
             // O Caverinha escolheu atacar com sua adaga velha.
-            _dano = new Dano(this, 1.0, 1.0);
-            int _danoCausado = heroi.receberDano(_dano);
-            if (_danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
+            dano = new Dano(this, 1.0, 1.0);
+            int danoCausado = heroi.receberDano(dano);
+            if (danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
                 {
                 // O dano foi causado com sucesso.
-                System.out.println("O Caverinha atacou o heroi com sua adaga velha e causou " + _danoCausado + " de dano.");
+                System.out.println("O Caverinha atacou o heroi com sua adaga velha e causou " + danoCausado + " de dano.");
                 }
             else
                 {
@@ -60,12 +60,12 @@ public class Caverinha extends Inimigo
         else
             {
             // O Caverinha escolheu atirar flechas.
-            _dano = new Dano(this, 1.5, 0.80); // Ataque mais forte e menos preciso.
-            int _danoCausado = heroi.receberDano(_dano);
-            if (_danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
+            dano = new Dano(this, 1.5, 0.80); // Ataque mais forte e menos preciso.
+            int danoCausado = heroi.receberDano(dano);
+            if (danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
                 {
                 // O dano foi causado com sucesso.
-                System.out.println("O Caverinha atirou uma flecha no heroi e causou " + _danoCausado + " de dano.");
+                System.out.println("O Caverinha atirou uma flecha no heroi e causou " + danoCausado + " de dano.");
                 }
             else
                 {
@@ -75,6 +75,6 @@ public class Caverinha extends Inimigo
             }
         
         // A instancia dano é descartada, pois já cumpriu seu papel de interagir com o heroi.
-        _dano = null;
+        dano = null;
         }
     }

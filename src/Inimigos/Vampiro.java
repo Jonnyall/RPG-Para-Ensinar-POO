@@ -67,11 +67,11 @@ public class Vampiro extends Inimigo
         Dano _mordida = new Dano(this, 1.0, 1.0);
 
         // Agora o objeto dano vai interagir com o heroi.
-        int _danoCausado = heroi.receberDano(_mordida);
-        if (_danoCausado != PQB_DANO_DESVIADO)
+        int danoCausado = heroi.receberDano(_mordida);
+        if (danoCausado != PQB_DANO_DESVIADO)
             {
             // O dano foi causado com sucesso.
-            System.out.println("O Vampiro mordeu o heroi e causou " + _danoCausado + " de dano.");
+            System.out.println("O Vampiro mordeu o heroi e causou " + danoCausado + " de dano.");
             }
         else
             {
