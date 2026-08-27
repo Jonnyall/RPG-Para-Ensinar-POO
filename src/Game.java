@@ -27,9 +27,6 @@ public class Game
 
     // A NPC com a qual o herói está interagindo agora.
     static NPC GM_NPC_Agora;
-    
-    // Inicializando o "mundo" do RPG.
-    
 
     // Alguns métodos apenas para interagir pela lógica do jogo. (Entre as maquinas de estados)
     
