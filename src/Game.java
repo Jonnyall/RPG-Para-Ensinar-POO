@@ -3,6 +3,7 @@ package src;
 import java.util.Scanner;
 
 import src.ElementosDeCenario.*;
+import src.Inimigos.Inimigo;
 
 public class Game
     {
@@ -237,10 +238,10 @@ public class Game
     // Com as NPCs.
     static void interarNPC()
         {
-        //Interagindo com a NPC atual.
+        // Interagindo com a NPC atual.
         GM_NPC_Agora.interagir(GM_Heroi);
         
-        //Lógica de leitura do teclado aqui.
+        // Lógica de leitura do teclado aqui.
         String _entrada_do_heroi = GM_Scanner.nextLine();
         String[] _entrada_do_heroi_argv = _entrada_do_heroi.split(" ");
 
@@ -381,6 +382,238 @@ public class Game
             }
         }
     
+    // Com as batalhas.
+    static boolean avaliarEntradaDeAtaque(String index_text)
+        {
+        // Obtendo os inimigos da batalha.
+        Inimigo[] _inimigos_da_batalha = GM_Heroi.obterLocalidade().obterInimigos();
+
+        // Avaliando se o segundo argumento é um número inteiro válido.
+        int index;
+        try
+            {
+            index = Integer.parseInt(index_text);
+            }
+        catch (NumberFormatException e)
+            {
+            System.out.println("O argumento deve ser um número inteiro válido.");
+            return(false);
+            }
+
+        // Avaliando se o número dado é valido na lista de inimigos.
+        if (index >= 0 && index < _inimigos_da_batalha.length)
+            {
+            System.out.println("É necessario dar um numero entre as os inimigos possiveis");
+            return(false);
+            }
+
+        // Terceira avaliação, se o inimigo escolhido está vivo.
+        if (_inimigos_da_batalha[index].obterVida() <= 0)
+            {
+            System.out.println("O inimigo escolhido já está morto.");
+            return(false);
+            }
+            
+        // Se passou por todas as avaliações, então a entrada é válida.
+        return(true);
+        }
+    static void interarBatalha()
+        {
+        // Aqui será implementada a lógica de batalha.
+        
+        // Obtendo os inimigos da batalha.
+        Inimigo[] _inimigos_da_batalha = GM_Heroi.obterLocalidade().obterInimigos();
+
+        // Printando informações da batalhas.
+        System.out.println("O herói está batalhando com os seguintes inimigos: ");
+        for (int i = 0; i < _inimigos_da_batalha.length; i++)
+            {
+            Inimigo inim = _inimigos_da_batalha[i];    
+            System.out.println("\t" +i + " - " +inim.obterNome() +" Vida: " +inim.obterVida() +"/" +inim.obterVidaMaxima());
+            }
+
+        // Obtendo os itens do herói.
+        int N_flechas = GM_Heroi.possuiItemNoInventarioQuantidade(Item.FLECHA);
+        int N_bombas = GM_Heroi.possuiItemNoInventarioQuantidade(Item.BOMBA);
+        int N_pocao = GM_Heroi.possuiItemNoInventarioQuantidade(Item.POCAO_DE_CURA);
+
+        // Printando informações do herói.
+        System.out.println("Herói: " +GM_Heroi.obterNome() +" Vida: " +GM_Heroi.obterVida() +"/" +GM_Heroi.obterVidaMaxima());
+        System.out.println("\tItens do herói: Flechas: " +N_flechas +", Bombas: " +N_bombas +", Poções de Cura: " +N_pocao);
+        
+
+        // Printando as opções de ação do herói.
+        System.out.println("O herói pode atacar um inimigo: (Atacar <numero_do_inimigo>)");
+
+        // Printando a opçao de usar uma flecha.
+        if (N_flechas > 0)
+            {
+            System.out.println("O herói pode usar uma flecha: (Flecha <numero_do_inimigo>)");
+            }
+
+        // Printando a opçao de usar uma bomba.
+        if (N_bombas > 0)
+            {
+            System.out.println("O herói pode usar uma bomba: (Bomba)");
+            }
+        
+        // Printando a opçao de usar uma poção decura.
+        if (N_pocao > 0)
+            {
+            System.out.println("O herói pode usar uma poção decura: (Pocao)");
+            }
+
+        // Apenas uma flag para saber se o herói já usou o seu turno.
+        boolean heroi_ja_usou_turno = false;
+
+        // Lendo a entrada do herói.
+        String _entrada_do_heroi = GM_Scanner.nextLine();
+        String[] _entrada_do_heroi_argv = _entrada_do_heroi.split(" ");
+
+        // Case "Atacar":
+        if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Atacar"))
+            {
+            // Aqui será implementada a lógica de ataque do herói.
+
+            // Antes, é preciso verificar se o segundo argumento foi dado.
+            if (_entrada_do_heroi_argv.length >= 2)
+                {
+                // Avaliando se a entrada do herói é válida.
+                if (avaliarEntradaDeAtaque(_entrada_do_heroi_argv[1]))
+                    {
+                    // Obtendo o índice do inimigo a ser atacado.
+                    int indice_inimigo = Integer.parseInt(_entrada_do_heroi_argv[1]);
+
+                    // Obtendo o inimigo a ser atacado.
+                    Inimigo inimigo_a_ser_atacado = _inimigos_da_batalha[indice_inimigo];
+
+                    // O herói ataca o inimigo escolhido.
+                    GM_Heroi.darEspadada(inimigo_a_ser_atacado);
+
+                    // Se o inimigo atacado morreu, então ele deve dropar os itens dele.
+                    if (inimigo_a_ser_atacado.obterVida() <= 0)
+                        {
+                        System.out.println("O inimigo " +inimigo_a_ser_atacado.obterNome() +" foi derrotado!");
+                        
+                        // O inimigo atacado morreu, então ele deve dropar os itens dele.
+                        inimigo_a_ser_atacado.soltarItens(GM_Heroi);
+                        }
+
+                    // O heroi já fez o seu movimento.
+                    heroi_ja_usou_turno = true;
+                    }   
+                }
+            else
+                {
+                System.out.println("Você precisa especificar o número do inimigo para atacar.");
+                }
+            }
+        // Case "Flecha":
+        else if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Flecha"))
+            {
+            // Aqui será implementada a lógica de ataque do herói com flecha.
+
+            // Antes, é preciso verificar se o segundo argumento foi dado.
+            if (_entrada_do_heroi_argv.length >= 2)
+                {
+                // Avaliando se a entrada do herói é válida.
+                if (avaliarEntradaDeAtaque(_entrada_do_heroi_argv[1]))
+                    {
+                    // Obtendo o índice do inimigo a ser atacado.
+                    int indice_inimigo = Integer.parseInt(_entrada_do_heroi_argv[1]);
+
+                    // Obtendo o inimigo a ser atacado.
+                    Inimigo inimigo_a_ser_atacado = _inimigos_da_batalha[indice_inimigo];
+
+                    // O herói ataca o inimigo escolhido com flecha.
+                    GM_Heroi.darFlechada(inimigo_a_ser_atacado);
+
+                    // Se o inimigo atacado morreu, então ele deve dropar os itens dele.
+                    if (inimigo_a_ser_atacado.obterVida() <= 0)
+                        {
+                        System.out.println("O inimigo " +inimigo_a_ser_atacado.obterNome() +" foi derrotado!");
+                        
+                        // O inimigo atacado morreu, então ele deve dropar os itens dele.
+                        inimigo_a_ser_atacado.soltarItens(GM_Heroi);
+                        }
+
+                    // O heroi já fez o seu movimento.
+                    heroi_ja_usou_turno = true;
+                    }   
+                }
+            else
+                {
+                System.out.println("Você precisa especificar o número do inimigo para atacar.");
+                }
+            }
+        // Case "Bomba":
+        else if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Bomba"))
+            {
+            // Aqui será implementada a lógica de ataque do herói com bomba.
+
+            // O herói ataca todos os inimigos com bomba.
+            GM_Heroi.lancarBomba(_inimigos_da_batalha);
+
+            // Se algum inimigo atacado morreu, então ele deve dropar os itens dele.
+            for (int i = 0; i < _inimigos_da_batalha.length; i++)
+                {
+                Inimigo inimigo_a_ser_atacado = _inimigos_da_batalha[i];
+
+                if (inimigo_a_ser_atacado.obterVida() <= 0)
+                    {
+                    System.out.println("O inimigo " +inimigo_a_ser_atacado.obterNome() +" foi derrotado!");
+                    
+                    // O inimigo atacado morreu, então ele deve dropar os itens dele.
+                    inimigo_a_ser_atacado.soltarItens(GM_Heroi);
+                    }
+                }
+
+            // O heroi já fez o seu movimento.
+            heroi_ja_usou_turno = true;
+            }
+        // Case "Pocao":
+        else if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Pocao"))
+            {
+            // Aqui será implementada a lógica de cura do herói com poção.
+
+            // O herói usa uma poção de cura.
+            GM_Heroi.curar(20); // Supondo que a poção de cura recupere 20 de vida.
+
+            // O heroi já fez o seu movimento.
+            heroi_ja_usou_turno = true;
+            }
+        else
+            {
+            System.out.println("Comando inválido, tente novamente.");
+            }
+        
+        // Se o herói já usou o seu turno, então os inimigos podem fazer os movimentos deles.
+        if (heroi_ja_usou_turno)
+            {
+            // Aqui será implementada a lógica de ataque dos inimigos.
+            for (int i = 0; i < _inimigos_da_batalha.length; i++)
+                {
+                Inimigo inimigo = _inimigos_da_batalha[i];
+
+                // Apenas atacando se o inimigo estiver vivo.
+                if (inimigo.obterVida() > 0)
+                    {
+                    inimigo.atacarHeroi(GM_Heroi);
+                    
+                    // Esperando um tempo.
+
+                    }
+                }
+            }
+
+        // Se todos os inimigos estiverem mortos, então a batalha termina.
+        if (GM_Heroi.obterLocalidade().todosInimigosDerrotados())
+            {
+            System.out.println("Todos os inimigos foram derrotados!");
+
+            GM_estado = GM_Estados.LOCALIDADE;
+            }
+        }
 
     // Método main da classe.
     public static void main(String[] args)
@@ -424,6 +657,10 @@ public class Game
                     interarNPC();
 
                 break;
+
+                case BATALHA:
+                    // Aqui seria implementada a lógica de batalha.
+                    
 
                 default:
                     break;

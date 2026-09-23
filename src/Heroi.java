@@ -67,7 +67,7 @@ public class Heroi extends PersonagemQueBatalha
             }
         }
 
-    public void lançarBomba(Inimigo [] inimigo)
+    public void lancarBomba(Inimigo [] inimigo)
         {
         // Aqui será implementado a lógica para o heroi lançar uma bomba em vários inimigos.
 

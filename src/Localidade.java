@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.ElementosDeCenario.ElementosCenario;
+import src.Inimigos.Inimigo;
+import src.Inimigos.GruposInimigos;
 
 public class Localidade extends TodasAsCoisas
     {
@@ -22,6 +24,9 @@ public class Localidade extends TodasAsCoisas
 
     // Os caminhos possiveis para outras localidades a partir desta localidade.
     private Localidade[] caminhos;
+
+    // Grupos de inimigos que podem aparecer nesta localidade.
+    private GruposInimigos gruposInimigos;
 
     // Construtor da classe.
     public Localidade(String nome, String descricao)
@@ -106,7 +111,29 @@ public class Localidade extends TodasAsCoisas
         return lista_temporaria.toArray(new ElementosCenario[0]);
         }
 
+    // Método para configurar os grupos de inimigos que podem aparecer nesta localidade.
+    public void configurarGruposInimigos(GruposInimigos gruposInimigos)
+        {
+        this.gruposInimigos = gruposInimigos;
+        }
 
+    // Metodo para iniciar um grupo de inimigos nesta localidade.
+    public void iniciarGrupoInimigos()
+        {
+        gruposInimigos.instanciarGrupo();
+        }
+
+    // Método para obter os inimigos que estão nesta localidade.
+    public Inimigo[] obterInimigos()
+        {
+        return (gruposInimigos.getInimigos());
+        }
+
+    // Método para verificar se todos os inimigos desta localidade foram derrotados.
+    public boolean todosInimigosDerrotados()
+        {
+        return (gruposInimigos.todosInimigosDerrotados());
+        }
 
     // Método para se obter o nome da Localidade.
     public String obterNome()

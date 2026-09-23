@@ -4,6 +4,8 @@ import src.ElementosDeCenario.Livro;
 import src.ElementosDeCenario.PeDeCenoura;
 import src.ElementosDeCenario.PuleiroDeGalinha;
 
+import src.Inimigos.*;
+
 public class Mundo extends TodasAsCoisas
     {
     // Essa classe é responsável por inicializar o "mundo do jogo".
@@ -93,6 +95,7 @@ public class Mundo extends TodasAsCoisas
         {
         configurarInteragiveis();
         configurarCaminhos();
+        configurarGruposInimigos();
         configurarDialogos();
         }
             
@@ -183,11 +186,22 @@ public class Mundo extends TodasAsCoisas
         });
         }
 
-    // Método que configura os diálogos das NPCs.
+    // Método que configura os grupos de inimigos que podem aparecer em cada localidade.
+    @SuppressWarnings("unchecked")
+    private static void configurarGruposInimigos()
+        {
+        // Localidade: Galpão da taberna.
+        GM_Localidades.GAUPAO_DA_TABERNA.retornar().configurarGruposInimigos(
+            new GruposInimigos(new Class[][]{
+                {Slime.class, Slime.class, Slime.class, Slime.class, Slime.class}
+            }));
+        }
 
-    // Configuração dos diálogos do Taberneiro.
+
+    // Método que configura os diálogos das NPCs.    
     private static void configurarDialogos()
         {
+        // Configuração dos diálogos do Taberneiro.    
         NPC taberneiro = GM_NPCs.TABERNEIRO.retornar();
 
         // Fala padrão.

@@ -27,7 +27,7 @@ public abstract class Inimigo extends PersonagemQueBatalha
     public abstract void atacarHeroi(Heroi heroi);
     
     // Método para "dropar" os itens do inimigo ao serem derrotados.
-    public void droparItens( Heroi heroi)
+    public void soltarItens( Heroi heroi)
         {  
         for (int i = 0; i < saques.length; i++)
             {
@@ -40,6 +40,9 @@ public abstract class Inimigo extends PersonagemQueBatalha
             if (item != null)
                 {
                 heroi.adicionarItemAoInventario(item);
+                
+                // Printando uma mensagem para informar que o item foi dropado.
+                System.out.println("O " + obterNome() + " dropou o item: " + item.obterNome() + " e foi adicionado ao inventário do herói.");
                 }
             }
         }

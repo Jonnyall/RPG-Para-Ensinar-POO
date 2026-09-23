@@ -10,6 +10,7 @@ public abstract class PersonagemQueBatalha extends Personagem
     
     // A vida do personagem.
     private int vida;
+    private int vida_maxima;
 
     // O quanto o personagem pode fazer de dano, ou seja, o seu poder de ataque.
     private int ataque;
@@ -29,6 +30,7 @@ public abstract class PersonagemQueBatalha extends Personagem
         
         // Atribuindo os atributos do personagem.
         this.vida = vida;
+        this.vida_maxima = vida;
         this.ataque = ataque;
         this.defesa = defesa;
         this.sorte = sorte;
@@ -56,6 +58,11 @@ public abstract class PersonagemQueBatalha extends Personagem
     public int obterSorte()
         {
         return (this.sorte);
+        }
+
+    public int obterVidaMaxima()
+        {
+        return (this.vida_maxima);
         }
 
     // Métodos da classe.
@@ -87,6 +94,14 @@ public abstract class PersonagemQueBatalha extends Personagem
     public void curar(int _cura)
         {
         // Aqui fica a logica para curar o personagem, aumentando sua vida.
+        if (this.vida + _cura > this.vida_maxima)
+            {
+            this.vida = this.vida_maxima;
+            }
+        else
+            {
+            this.vida += _cura;
+            }
         }
 
     // Métodos para multiplicar o ataque.
