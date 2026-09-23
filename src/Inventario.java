@@ -31,6 +31,19 @@ public class Inventario extends TodasAsCoisas
         return (this.items.size());
         }
 
+    // Método que retorna um item específico do inventário, dado o índice do item.
+    public Item obterItem(int indice)
+        {
+        // Verificando se o índice é válido.
+        if (indice < 0 || indice >= this.items.size())
+            {
+            System.out.println("Índice inválido. Retornando null.");
+            return (null);
+            }
+        
+        return (this.items.get(indice));
+        }
+
     // Método para obter a quantidade de um item específico no inventário.
     public int quantidadeItemEspecifico(Item item)
         {

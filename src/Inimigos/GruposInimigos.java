@@ -46,9 +46,21 @@ public class GruposInimigos extends TodasAsCoisas
         }
 
     // Método para obter os inimigos (instanciados).
-    public Inimigo[] getInimigos()
+    public Inimigo[] obterInimigos()
         {
+        // Verificando se os inimigos já foram instanciados. Se não, instancia-os.
+        if (inimigosInstanciados == null)
+            {
+            instanciarGrupo();
+            }
+        
         return (inimigosInstanciados);
+        }
+
+    // Método para verificar se o grupo de inimigos é um grupo vazio (ou seja, se não há inimigos).
+    public boolean grupoVazio()
+        {
+        return (this.inimigos == null || this.inimigos.length == 0);
         }
 
     // Método que diz se os inimigos já foram derrotados (ou seja, se todos os inimigos do grupo estão mortos).
@@ -62,5 +74,17 @@ public class GruposInimigos extends TodasAsCoisas
                 }
             }
         return(true);
+        }
+    
+    // Método para verificar se os inimigos já foram instanciados.
+    public boolean inimigosInstanciados()
+        {
+        return (inimigosInstanciados != null);
+        }
+
+    // Método para limpar os inimigos instanciados (ou seja, para "resetar" o grupo de inimigos).
+    public void limparInimigosInstanciados()
+        {
+        inimigosInstanciados = null;
         }
     }

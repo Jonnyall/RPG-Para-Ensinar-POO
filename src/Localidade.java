@@ -120,13 +120,38 @@ public class Localidade extends TodasAsCoisas
     // Metodo para iniciar um grupo de inimigos nesta localidade.
     public void iniciarGrupoInimigos()
         {
-        gruposInimigos.instanciarGrupo();
+        if (gruposInimigos != null)
+            {
+            gruposInimigos.instanciarGrupo();
+            }
+        }
+
+    // Método para limpar os inimigos instanciados nesta localidade.
+    public void limparGruposInimigosInstanciados()
+        {
+        if (gruposInimigos != null)
+            {
+            gruposInimigos.limparInimigosInstanciados();
+            }
         }
 
     // Método para obter os inimigos que estão nesta localidade.
     public Inimigo[] obterInimigos()
         {
-        return (gruposInimigos.getInimigos());
+        if (gruposInimigos != null)
+            {
+            return (gruposInimigos.obterInimigos());
+            }
+        else
+            {
+            return (new Inimigo[0]);
+            }
+        }
+
+    // Método para verificar se a localidade possui inimigos.
+    public boolean possuiInimigos()
+        {
+        return (gruposInimigos != null && !gruposInimigos.grupoVazio());
         }
 
     // Método para verificar se todos os inimigos desta localidade foram derrotados.
@@ -146,4 +171,18 @@ public class Localidade extends TodasAsCoisas
         {
         return (this.descricao);
         }
+    
+    // Evento de inicialização da localidade.
+    public void iniciarLocalidade()
+        {
+        // Iniciando os inimigos da localidade.
+        this.iniciarGrupoInimigos();
+        }
+
+    public void finalizarLocalidade()
+        {
+        // Finalizando os inimigos da localidade.
+        this.limparGruposInimigosInstanciados();
+        }
+
     }

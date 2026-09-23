@@ -9,7 +9,17 @@ public enum Item
     POCAO_DE_CURA("Poção de Cura", "Use-a para recuperar sua vida."),
     FLECHA("Flecha", "Use-a para atacar inimigos a distância."),
     BOMBA("Bomba", "Use-a para atacar vários inimigos de uma vez só."),
-    DENTEDEVAMPIRO("Dente de Vampiro", "Um troféu que simboliza a vitória sobre um inimigo poderoso."),;
+    
+    // Troféus de inimigos derrotados.
+    GELECA_DE_SLIME("Geleca de Slime", "Uma gosma viscosa que antes pertencia ao corpo de um slime."),
+    DENTEDEVAMPIRO("Dente de Vampiro", "Um troféu que simboliza a vitória sobre um inimigo poderoso."),
+    
+    // Chaves.
+    CHAVE_PARA_OS_FUNDOS("Chave para os Fundos", "Uma chave que abre a porta para os fundos da taberna e ir para a floresta."),
+    
+    
+    //Apenas finalizando a enumeração com um ponto e vírgula.
+    ;
     
     // Atributos do item.
     private final String nome;

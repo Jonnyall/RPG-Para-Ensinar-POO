@@ -1,8 +1,6 @@
 package src;
 
-import src.ElementosDeCenario.Livro;
-import src.ElementosDeCenario.PeDeCenoura;
-import src.ElementosDeCenario.PuleiroDeGalinha;
+import src.ElementosDeCenario.*;
 
 import src.Inimigos.*;
 
@@ -39,7 +37,7 @@ public class Mundo extends TodasAsCoisas
 
         // Localidade 5: Gaupão da taberna.
         GAUPAO_DA_TABERNA(new Localidade(
-            "GAUPAO_DA_TABERNA", 
+            "Galpão da Taberna", 
             "Local onde o taberneiro guarda seus pertences e algumas criaturas gosmentas que ele usa para sua receita."
         )),
 
@@ -147,9 +145,22 @@ public class Mundo extends TodasAsCoisas
 
 
         // O pé de cenoura e o puleiro na fazendinha.
+        // Assim como as portas, esses elementos interagíveis são adicionados à localidade da fazendinha do taberneiro.
         GM_Localidades.FAZENDINHA_DO_TABERNEIRO.retornar().configurarInteragiveis(new Interagivel[]{
             new PuleiroDeGalinha(),
-            new PeDeCenoura()
+            new PeDeCenoura(),
+            new Porta(
+                "Porta para os Fundos",
+                "uma porta que fica aos fundos da fazendinha do taberneiro.",
+                Item.CHAVE_PARA_OS_FUNDOS,
+                GM_Localidades.ENTRADA_FLORESTA.retornar()
+            ),
+            new Porta(
+                "Porta para o Galpão da Taberna",
+                "uma porta que fica aos fundos da fazendinha do taberneiro.",
+                new Missao[]{Missao.COLETAR_CENOURAS, Missao.COLETAR_OVOS},
+                GM_Localidades.GAUPAO_DA_TABERNA.retornar()
+            )
         });
         }
 
@@ -176,8 +187,12 @@ public class Mundo extends TodasAsCoisas
 
         // Fazendinha do taberneiro -> Quintal da taberna, Entrada da floresta
         GM_Localidades.FAZENDINHA_DO_TABERNEIRO.retornar().configurarCaminhos(new Localidade[]{
-            GM_Localidades.QUINTAL_DA_TABERNA.retornar(),
-            GM_Localidades.ENTRADA_FLORESTA.retornar()
+            GM_Localidades.QUINTAL_DA_TABERNA.retornar()
+        });
+
+        // Galpão da taberna -> Fazendinha do taberneiro
+        GM_Localidades.GAUPAO_DA_TABERNA.retornar().configurarCaminhos(new Localidade[]{
+            GM_Localidades.FAZENDINHA_DO_TABERNEIRO.retornar()
         });
 
         // Entrada da floresta -> Fazendinha do taberneiro

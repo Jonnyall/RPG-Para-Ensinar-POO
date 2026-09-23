@@ -41,9 +41,25 @@ public class Heroi extends PersonagemQueBatalha
         }
     
     // Métodos da classe.
+
+    // Métodos para o herói atacar inimigos.
     public void darEspadada(Inimigo inimigo)
         {
         // Aqui será implementado a lógica para o heroi dar uma espada.
+        Dano dano_espada = new Dano(this, 1.0, 1.0);
+        int danoCausado = inimigo.receberDano(dano_espada);
+        
+        // Avaliando o resultado do dano causado.
+        if (danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
+            {
+            // O dano foi causado com sucesso.
+            System.out.println("O Heroi atacou o inimigo " +inimigo.obterNome() +" com sua espada e causou " +danoCausado +" de dano.");
+            }
+        else
+            {
+            // O dano foi desviado.
+            System.out.println("O Heroi atacou o inimigo " +inimigo.obterNome() +" com sua espada, mas ele desviou.");
+            }
         }
 
     public void darFlechada(Inimigo inimigo)
@@ -56,6 +72,20 @@ public class Heroi extends PersonagemQueBatalha
             // Se o herói possui flechas, ele pode dar uma flechada.
             
             // Aqui poderia ser implementada a lógica para causar dano ao inimigo com a flechada.
+            Dano dano_flechada = new Dano(this, 2.5, 7.5); // Ataque mais forte e mais preciso.
+            int danoCausado = inimigo.receberDano(dano_flechada);
+
+            // Avaliando o resultado do dano causado.
+            if (danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
+                {
+                // O dano foi causado com sucesso.
+                System.out.println("O Heroi atirou uma flecha no inimigo " +inimigo.obterNome() +" e causou " +danoCausado +" de dano.");
+                }
+            else
+                {
+                // O dano foi desviado.
+                System.out.println("O Heroi atirou uma flecha no inimigo " +inimigo.obterNome() +", mas ele desviou.");
+                }
 
             // Após dar a flechada, o herói deve perder uma flecha do seu inventário.
             this.inventario_do_heroi.removerItem(Item.FLECHA);
@@ -78,6 +108,23 @@ public class Heroi extends PersonagemQueBatalha
             System.out.println("O heroi lançou uma bomba nos inimigos!");
 
             // Aqui poderia ser implementada a lógica para causar dano a todos os inimigos com a bomba.
+            Dano dano_bomba = new Dano(this, 5.0, 100.0); // Ataque mais forte e quase infalível.
+            for (Inimigo i : inimigo)
+                {
+                int danoCausado = i.receberDano(dano_bomba);
+
+                // Avaliando o resultado do dano causado.
+                if (danoCausado != PersonagemQueBatalha.PQB_DANO_DESVIADO)
+                    {
+                    // O dano foi causado com sucesso.
+                    System.out.println("A bomba causou " +danoCausado +" de dano no inimigo " +i.obterNome() +".");
+                    }
+                else
+                    {
+                    // O dano foi desviado.
+                    System.out.println("A bomba não causou dano no inimigo " +i.obterNome() +", pois ele desviou.");
+                    }
+                }
 
             // Após lançar a bomba, o herói deve perder uma bomba do seu inventário.
             this.inventario_do_heroi.removerItem(Item.BOMBA);
@@ -85,7 +132,29 @@ public class Heroi extends PersonagemQueBatalha
         else
             {
             // Se o herói não possui bombas, ele não pode lançar uma bomba.
-            System.out.println("O heroi não possui bombas para lançar.");
+            System.out.println("O Heroi não possui bombas para lançar.");
+            }
+        }
+
+
+    // Métodos para o herói se curar.
+    public void beberPocaoDeCura()
+        {
+        // Aqui será implementado a lógica para o heroi se curar.
+        // Primeiro vare-se o inventário do herói para verificar se ele possui poções de cura.
+        if (this.inventario_do_heroi.quantidadeItemEspecifico(Item.POCAO_DE_CURA) > 0)
+            {
+            // Se o herói possui poções de cura, ele pode se curar.
+            this.curar(20); // Supondo que a poção de cura recupere 20 de vida.
+            System.out.println("O heroi bebeu uma poção de cura e recuperou 20 de vida.");
+
+            // Após beber a poção de cura, o herói deve perder uma poção do seu inventário.
+            this.inventario_do_heroi.removerItem(Item.POCAO_DE_CURA);
+            }
+        else
+            {
+            // Se o herói não possui poções de cura, ele não pode se curar.
+            System.out.println("O heroi não possui poções de cura para beber.");
             }
         }
 
@@ -96,6 +165,15 @@ public class Heroi extends PersonagemQueBatalha
     public void adicionarItemAoInventario(Item item)
         {
         this.inventario_do_heroi.adicionarItem(item);
+        }
+
+    // Método para adicionar vários itens ao inventário do herói.
+    public void adicionarItemAoInventario(Item item, int quantidade)
+        {
+        for (int i = 0; i < quantidade; i++)
+            {
+            adicionarItemAoInventario(item);
+            }
         }
 
     // Método para verificar se o herói possui um item específico no inventário.
@@ -130,6 +208,19 @@ public class Heroi extends PersonagemQueBatalha
         // Adicionando a missão à lista de missões completadas.
         this.missoes_completadas.add(missao);
         
+        // Removendo os itens do inventário do herói que foram usados para completar a missão.
+        for (int i = 0; i < missao.obterNumeroTipoRequisitos(); i++)
+            {
+            Item item = missao.obterTipoRequisitoItem(i);
+            int quant = missao.obterTipoRequisitoQuantidade(i);
+
+            // Removendo a quantidade de itens do inventário do herói.
+            for (int j = 0; j < quant; j++)
+                {
+                this.inventario_do_heroi.removerItem(item);
+                }
+            }
+
         // Se por acaso for a missão que o herói está cumprindo, for a que ele está no momento, então aproveita para limpar a missão atual.
         if (this.missao_atual == missao)
             {
@@ -183,7 +274,20 @@ public class Heroi extends PersonagemQueBatalha
     // Método para mudar a localidade atual do herói.
     public void mudarLocalidade(Localidade nova_localidade)
         {
+        // Finalizando a localidade atual.
+        if (this.localidade_atual != null)
+            {
+            this.localidade_atual.finalizarLocalidade();
+            }
+
+        // Atualizando a localidade atual.
         this.localidade_atual = nova_localidade;
+
+        // Iniciando a nova localidade.
+        if (nova_localidade != null)
+            {
+            this.localidade_atual.iniciarLocalidade();
+            }
         }
     
     // Método para obter a localidade atual do herói.
@@ -193,6 +297,30 @@ public class Heroi extends PersonagemQueBatalha
         }
     
     
+    // Método para "desenhar" o inventário do herói.
+    public void desenharInventario()
+        {
+        System.out.println("\n--- INVENTÁRIO DO HERÓI ---\n");
+        
+        // Perguntando se o herói possui algum item no inventário.
+        if (this.inventario_do_heroi.quantidadeItens() == 0)
+            {
+            System.out.println("\nO herói não possui nenhum item em seu inventário.\n");
+            }
+        else
+            {
+            // Mostrando os itens do inventário.
+            for (int i = 0; i < this.inventario_do_heroi.quantidadeItens(); i++)
+                {
+                Item item = this.inventario_do_heroi.obterItem(i);
+
+                System.out.println("\t" +item.obterNome());
+                }
+            }
+        }
+
+
+
     // Método para "desenhar" o log das missões.
     public void desenharMissoes()
         {

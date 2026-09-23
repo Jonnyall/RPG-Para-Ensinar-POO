@@ -47,191 +47,217 @@ public class Game
         // Descrevendo a sala.
         System.out.println("\n" +_localidade_atual.obterDescricao() +"\n");
 
-        // Obtendo as NPCS e elementos do cenário.
-        NPC[] _npc_na_localidade            = _localidade_atual.obterNPC();
-        int _npc_na_localidade_N = _npc_na_localidade.length;
-        ElementosCenario[] _elc_na_localidade = _localidade_atual.obterElementosCenario();
-        int _elc_na_localidade_N = _elc_na_localidade.length;
-
-        // Printando as opções de interação para o jogador.
-
-        // Pulando uma linha.
-        System.out.println("\n");
-
-        // Apenas mostrando essa informação se existirem NPCs na sala.
-        if (_npc_na_localidade_N > 0)
+        // Verificando se há inimigos na localidade.
+        if (_localidade_atual.possuiInimigos())
             {
-            // As NPCs
-            System.out.println("O Herói pode falar com: (Falar)");
+            // Obtendo os inimigos da localidade.
+            Inimigo[] _inimigos_na_localidade = _localidade_atual.obterInimigos();
+            int _inimigos_na_localidade_N = _inimigos_na_localidade.length;
 
-            for(i = 0; i < _npc_na_localidade_N; i++)
+            // Printando a informação de que há inimigos na localidade.
+            System.out.println("Cuidado! Há inimigos nesta localidade: ");
+            for(i = 0; i < _inimigos_na_localidade_N; i++)
                 {
-                System.out.println("\t" +i + " - " +_npc_na_localidade[i].obterNome());
-                }        
-            
-            System.out.println("\n");
-            }
-
-
-        // Apenas mostrando essa informação se existirem objetos interativos na sala.
-        if (_elc_na_localidade_N > 0)
-            {
-            // Os elementos de cenário.
-            System.out.println("Também há alguns objetos para o herói interagir: (Interagir)");
-
-            for(i = 0; i < _elc_na_localidade_N; i++)
-                {
-                System.out.println("\t" +i + " - " +_elc_na_localidade[i].obterNome() +"\n" +"\t\t" +_elc_na_localidade[i].obterDescricao());
+                System.out.println("\t" +i + " - " +_inimigos_na_localidade[i].obterNome() +" Vida: " +_inimigos_na_localidade[i].obterVida() +"/" +_inimigos_na_localidade[i].obterVidaMaxima());
                 }
-            
+
+            // Mudando o estado do jogo para BATALHA.
+            GM_estado = GM_Estados.BATALHA;
+            }
+        else
+            {
+
+            // Obtendo as NPCS e elementos do cenário.
+            NPC[] _npc_na_localidade            = _localidade_atual.obterNPC();
+            int _npc_na_localidade_N = _npc_na_localidade.length;
+            ElementosCenario[] _elc_na_localidade = _localidade_atual.obterElementosCenario();
+            int _elc_na_localidade_N = _elc_na_localidade.length;
+
+            // Printando as opções de interação para o jogador.
+
+            // Pulando uma linha.
             System.out.println("\n");
-            }
 
-
-        // Printando as saídas da localidade para o herói.
-        Localidade[] _saidas = _localidade_atual.obterCaminhos();
-        int _saidas_N = _saidas.length;
-
-        // O Heroi pode proseguir por: (Caminhar)
-        System.out.println("O Héroi pode proseguir por: (Caminhar)");
-
-        for(i = 0; i < _saidas_N; i++)
-            {
-            System.out.println("\t" +i +" - " +_saidas[i].obterNome() +"\n" +"\t\t" +_saidas[i].obterDescricao());
-            }
-
-        //Lógica de leitura do teclado aqui.
-        String _entrada_do_heroi = GM_Scanner.nextLine();
-        String[] _entrada_do_heroi_argv = _entrada_do_heroi.split(" ");
-
-        //Primeiro argumento.
-        String _primeiro_argumento = _entrada_do_heroi_argv[0];
-
-        //Avaliando a entrada.
-        //Case "Falar":
-        if (_primeiro_argumento.equalsIgnoreCase("Falar"))
-            {
-            // Se não houver NPCs na sala.
-            if (_npc_na_localidade_N == 0)
+            // Apenas mostrando essa informação se existirem NPCs na sala.
+            if (_npc_na_localidade_N > 0)
                 {
-                System.out.println("Não há NPCs na sala para o herói conversar...");
-                }
-            else
-                {
-                // Antes, é preciso verificar se o segundo argumento foi dado.
-                if (_entrada_do_heroi_argv.length >= 2)
+                // As NPCs
+                System.out.println("O Herói pode falar com: (Falar)");
+
+                for(i = 0; i < _npc_na_localidade_N; i++)
                     {
-                    try
-                        {
-                        int indiceNPC = Integer.parseInt(_entrada_do_heroi_argv[1]);
+                    System.out.println("\t" +i + " - " +_npc_na_localidade[i].obterNome());
+                    }        
+                
+                System.out.println("\n");
+                }
 
-                        // Verifica se é inteiro >= 0 e dentro do range de NPCs.
-                        if (indiceNPC >= 0 && indiceNPC < _npc_na_localidade_N)
-                            {
-                            // Interação com o NPC escolhido.
-                            System.out.println("O Héroi irá falar com " + _npc_na_localidade[indiceNPC].obterNome());
-                            GM_NPC_Agora = _npc_na_localidade[indiceNPC];
 
-                            // Mudando o estado do jogo.
-                            GM_estado = GM_Estados.CONVERSANDO;
-                            }
-                        else
-                            {
-                            System.out.println("Número inválido. Escolha um NPC listado.");
-                            }
-                        }
-                    catch (NumberFormatException e)
-                        {
-                        System.out.println("O argumento deve ser um número inteiro válido.");
-                        }       
+            // Apenas mostrando essa informação se existirem objetos interativos na sala.
+            if (_elc_na_localidade_N > 0)
+                {
+                // Os elementos de cenário.
+                System.out.println("Também há alguns objetos para o herói interagir: (Interagir)");
+
+                for(i = 0; i < _elc_na_localidade_N; i++)
+                    {
+                    System.out.println("\t" +i + " - " +_elc_na_localidade[i].obterNome() +"\n" +"\t\t" +_elc_na_localidade[i].obterDescricao());
+                    }
+                
+                System.out.println("\n");
+                }
+
+
+            // Printando as saídas da localidade para o herói.
+            Localidade[] _saidas = _localidade_atual.obterCaminhos();
+            int _saidas_N = _saidas.length;
+
+            // O Heroi pode proseguir por: (Caminhar)
+            System.out.println("O Héroi pode proseguir por: (Caminhar)");
+
+            for(i = 0; i < _saidas_N; i++)
+                {
+                System.out.println("\t" +i +" - " +_saidas[i].obterNome() +"\n" +"\t\t" +_saidas[i].obterDescricao());
+                }
+
+            //Lógica de leitura do teclado aqui.
+            String _entrada_do_heroi = GM_Scanner.nextLine();
+            String[] _entrada_do_heroi_argv = _entrada_do_heroi.split(" ");
+
+            //Primeiro argumento.
+            String _primeiro_argumento = _entrada_do_heroi_argv[0];
+
+            //Avaliando a entrada.
+            //Case "Falar":
+            if (_primeiro_argumento.equalsIgnoreCase("Falar"))
+                {
+                // Se não houver NPCs na sala.
+                if (_npc_na_localidade_N == 0)
+                    {
+                    System.out.println("Não há NPCs na sala para o herói conversar...");
                     }
                 else
                     {
-                    System.out.println("Você precisa especificar o número do NPC para falar.");
-                    }
-                }
-            }
-        //Case "Interagir":
-        else if (_primeiro_argumento.equalsIgnoreCase("Interagir"))
-            {
-            // Se não houver elementos de cenário na sala.
-            if (_elc_na_localidade_N == 0)
-                {
-                System.out.println("Não há objetos interativos na sala...");
-                }
-            else
-                {
-                // Antes, é preciso verificar se o segundo argumento foi dado.
-                if (_entrada_do_heroi_argv.length >= 2)
-                    {
-                    try
+                    // Antes, é preciso verificar se o segundo argumento foi dado.
+                    if (_entrada_do_heroi_argv.length >= 2)
                         {
-                        int indiceObj = Integer.parseInt(_entrada_do_heroi_argv[1]);
-
-                        // Verifica se é inteiro >= 0 e dentro do range de objetos.
-                        if (indiceObj >= 0 && indiceObj < _elc_na_localidade_N)
+                        try
                             {
-                            // Interação com o objeto escolhido.
-                            System.out.println("O Héroi irá interagir com " + _elc_na_localidade[indiceObj].obterNome());
-                            _elc_na_localidade[indiceObj].interagir(GM_Heroi);
-                            }
-                        else
-                            {
-                            System.out.println("Número inválido. Escolha um objeto listado.");
-                            }
-                    }
-                    catch (NumberFormatException e)
-                        {
-                        System.out.println("O argumento deve ser um número inteiro válido.");
-                        }
-                    }
-                else
-                    {
-                    System.out.println("Você precisa especificar o número do objeto para interagir.");
-                    }
-                }
-            }
-        //Case "Caminhar":
-        else if (_primeiro_argumento.equalsIgnoreCase("Caminhar"))
-            {
-            // Antes, é preciso verificar se o segundo argumento foi dado.
-            if (_entrada_do_heroi_argv.length >= 2)
-                {
-                try
-                    {
-                    int indiceSaida = Integer.parseInt(_entrada_do_heroi_argv[1]);
+                            int indiceNPC = Integer.parseInt(_entrada_do_heroi_argv[1]);
 
-                    // Verifica se é inteiro >= 0 e dentro do range de saídas.
-                    if (indiceSaida >= 0 && indiceSaida < _saidas_N)
-                        {
-                        // Caminhar para a saída escolhida.
-                        System.out.println("O Héroi irá  para " + _saidas[indiceSaida].obterNome());
-                        GM_Heroi.mudarLocalidade(_saidas[indiceSaida]);
+                            // Verifica se é inteiro >= 0 e dentro do range de NPCs.
+                            if (indiceNPC >= 0 && indiceNPC < _npc_na_localidade_N)
+                                {
+                                // Interação com o NPC escolhido.
+                                System.out.println("O Héroi irá falar com " + _npc_na_localidade[indiceNPC].obterNome());
+                                GM_NPC_Agora = _npc_na_localidade[indiceNPC];
+
+                                // Mudando o estado do jogo.
+                                GM_estado = GM_Estados.CONVERSANDO;
+                                }
+                            else
+                                {
+                                System.out.println("Número inválido. Escolha um NPC listado.");
+                                }
+                            }
+                        catch (NumberFormatException e)
+                            {
+                            System.out.println("O argumento deve ser um número inteiro válido.");
+                            }       
                         }
                     else
                         {
-                        System.out.println("Número inválido. Escolha uma saída listada.");
+                        System.out.println("Você precisa especificar o número do NPC para falar.");
                         }
                     }
-                catch (NumberFormatException e)
+                }
+            //Case "Interagir":
+            else if (_primeiro_argumento.equalsIgnoreCase("Interagir"))
+                {
+                // Se não houver elementos de cenário na sala.
+                if (_elc_na_localidade_N == 0)
                     {
-                    System.out.println("O argumento deve ser um número inteiro válido.");
+                    System.out.println("Não há objetos interativos na sala...");
+                    }
+                else
+                    {
+                    // Antes, é preciso verificar se o segundo argumento foi dado.
+                    if (_entrada_do_heroi_argv.length >= 2)
+                        {
+                        try
+                            {
+                            int indiceObj = Integer.parseInt(_entrada_do_heroi_argv[1]);
+
+                            // Verifica se é inteiro >= 0 e dentro do range de objetos.
+                            if (indiceObj >= 0 && indiceObj < _elc_na_localidade_N)
+                                {
+                                // Interação com o objeto escolhido.
+                                System.out.println("O Héroi irá interagir com " + _elc_na_localidade[indiceObj].obterNome());
+                                _elc_na_localidade[indiceObj].interagir(GM_Heroi);
+                                }
+                            else
+                                {
+                                System.out.println("Número inválido. Escolha um objeto listado.");
+                                }
+                        }
+                        catch (NumberFormatException e)
+                            {
+                            System.out.println("O argumento deve ser um número inteiro válido.");
+                            }
+                        }
+                    else
+                        {
+                        System.out.println("Você precisa especificar o número do objeto para interagir.");
+                        }
                     }
                 }
+            //Case "Caminhar":
+            else if (_primeiro_argumento.equalsIgnoreCase("Caminhar"))
+                {
+                // Antes, é preciso verificar se o segundo argumento foi dado.
+                if (_entrada_do_heroi_argv.length >= 2)
+                    {
+                    try
+                        {
+                        int indiceSaida = Integer.parseInt(_entrada_do_heroi_argv[1]);
+
+                        // Verifica se é inteiro >= 0 e dentro do range de saídas.
+                        if (indiceSaida >= 0 && indiceSaida < _saidas_N)
+                            {
+                            // Caminhar para a saída escolhida.
+                            System.out.println("O Héroi irá  para " + _saidas[indiceSaida].obterNome());
+                            GM_Heroi.mudarLocalidade(_saidas[indiceSaida]);
+                            }
+                        else
+                            {
+                            System.out.println("Número inválido. Escolha uma saída listada.");
+                            }
+                        }
+                    catch (NumberFormatException e)
+                        {
+                        System.out.println("O argumento deve ser um número inteiro válido.");
+                        }
+                    }
+                else
+                    {
+                    System.out.println("Você precisa especificar o número da saída para caminhar.");
+                    }
+                }
+            //Case "Inventario"
+            else if (_primeiro_argumento.equalsIgnoreCase("Inventario"))
+                {
+                GM_Heroi.desenharInventario();
+                }
+            //Case "Missoes"
+            else if (_primeiro_argumento.equalsIgnoreCase("Missoes"))
+                {
+                GM_Heroi.desenharMissoes();
+                }
+            // Default:
             else
                 {
-                System.out.println("Você precisa especificar o número da saída para caminhar.");
+                System.out.println("Comando inválido.");
                 }
-            }
-        //Case "Missoes"
-        else if (_primeiro_argumento.equalsIgnoreCase("Missoes"))
-            {
-            GM_Heroi.desenharMissoes();
-            }
-        // Default:
-        else
-            {
-            System.out.println("Comando inválido.");
             }
         }
 
@@ -575,9 +601,7 @@ public class Game
         else if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Pocao"))
             {
             // Aqui será implementada a lógica de cura do herói com poção.
-
-            // O herói usa uma poção de cura.
-            GM_Heroi.curar(20); // Supondo que a poção de cura recupere 20 de vida.
+            GM_Heroi.beberPocaoDeCura();
 
             // O heroi já fez o seu movimento.
             heroi_ja_usou_turno = true;
@@ -639,6 +663,10 @@ public class Game
             Mundo.GM_Localidades.QUARTO_DO_HEROI.retornar()
         );
 
+        // Cheats. Apenas para agilizar os testes.
+        GM_Heroi.adicionarItemAoInventario(Item.OVO, 15);
+        GM_Heroi.adicionarItemAoInventario(Item.CENOURA, 15);
+
         // Loop principal do jogo.
         while (GM_estado != GM_Estados.FIM_DE_JOGO)
             {
@@ -659,8 +687,9 @@ public class Game
                 break;
 
                 case BATALHA:
-                    // Aqui seria implementada a lógica de batalha.
                     
+                    // Aqui seria implementada a lógica de batalha.
+                    interarBatalha();
 
                 default:
                     break;
