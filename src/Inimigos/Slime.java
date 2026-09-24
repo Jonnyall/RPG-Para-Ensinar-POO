@@ -15,10 +15,10 @@ public class Slime extends Inimigo
         /*
         Ficha do Slime: Nome, Vida, Ataque, Defesa, Sorte.
             Nome: Slime
-            Vida: 50
-            Ataque: 5
+            Vida: 20
+            Ataque: 4
             Defesa: 2
-            Sorte: 10
+            Sorte: 1
         */
        
         // Chamando o construtor da superclasse (Inimigo) para configurar os atributos do Slime.

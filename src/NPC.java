@@ -99,7 +99,7 @@ public class NPC extends Personagem implements Interagivel
                 String missao_estado = missao_avaliada.avaliarDisponibilidade(heroi);
                 
                 // Printando as missões com seus respectivos estados.
-                System.out.println("\t\t" +missao_avaliada.obterNome() +" - " +missao_estado);
+                System.out.println("\t\t" +i +"-" +missao_avaliada.obterNome() +" - " +missao_estado);
                 }
             }
         }

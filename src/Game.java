@@ -12,7 +12,7 @@ public class Game
     // Responsável pela leitura do teclado do jogo.
     static Scanner GM_Scanner = new Scanner(System.in);
 
-    //Enum para administrar os estados do game.
+    // Enum para administrar os estados do game.
     public enum GM_Estados
         {
         LOCALIDADE, // Quando a logica do jogo está contina na navegação entre salas.
@@ -20,13 +20,14 @@ public class Game
         BATALHA, // Quando o jogador estiver batalhando com inimigos.
         FIM_DE_JOGO; // Quando o jogo terminou.
         }
-    //A variável estado do game em si.
+    
+    // A variável estado do game em si.
     static GM_Estados GM_estado = GM_Estados.LOCALIDADE;
 
-    // Guardará referência para o objeto Herói (o player).
+    // Guardará referência para a instancia Herói (o player).
     static Heroi GM_Heroi;
 
-    // A NPC com a qual o herói está interagindo agora.
+    // A NPC com a qual o Herói está interagindo agora.
     static NPC GM_NPC_Agora;
 
     // Alguns métodos apenas para interagir pela lógica do jogo. (Entre as maquinas de estados)
@@ -259,6 +260,15 @@ public class Game
         // Interagindo com a NPC atual.
         GM_NPC_Agora.interagir(GM_Heroi);
         
+        // Obtendo logo se a NPC em questão possui missões (uma vez que as opções mudam de acordo com essa possibilidade).
+        boolean npc_tem_missoes = GM_NPC_Agora.possueMissoes();
+
+        // Mostrando para o usuario quais são os possiveis comandos neste momento.
+        if (npc_tem_missoes)
+            System.out.println("Voltar\\Missao <n° da missão>");
+        else
+            System.out.println("Voltar");
+
         // Lógica de leitura do teclado aqui.
         String _entrada_do_heroi = GM_Scanner.nextLine();
         String[] _entrada_do_heroi_argv = _entrada_do_heroi.split(" ");
@@ -271,7 +281,7 @@ public class Game
         if (_primeiro_argumento.equalsIgnoreCase("Missao"))
             {
             // Primeiro, pergunta-se se a NPC possui missões.
-            if (!GM_NPC_Agora.possueMissoes())
+            if (npc_tem_missoes)
                 {
                 System.out.println(GM_NPC_Agora.obterNome() + " não possui missões...");
                 }
@@ -292,7 +302,12 @@ public class Game
                         // Se o Herói já possui uma missão em curso e está tentando pegar outra.
                         if (GM_Heroi.obterMissaoAtual() != null && GM_Heroi.obterMissaoAtual() != missao_olhada)
                             {
-                            System.out.println("O herói não pode pegar outra missão enquanto estiver em andamento com outra.");
+                            System.out.println("O Herói não pode pegar outra missão enquanto estiver em andamento com outra.");
+                            }
+                        // Se o Herói já completou a missão.
+                        else if (GM_Heroi.verificarMissaoCompletada(missao_olhada))
+                            {
+                            System.out.println("Essa missão já foi concluída!");
                             }
                         // Se a missão está indisponível.
                         else if (missao_olhada_estado.equalsIgnoreCase("Indisponível"))
