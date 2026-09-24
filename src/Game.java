@@ -50,16 +50,8 @@ public class Game
         // Verificando se há inimigos na localidade.
         if (_localidade_atual.possuiInimigos())
             {
-            // Obtendo os inimigos da localidade.
-            Inimigo[] _inimigos_na_localidade = _localidade_atual.obterInimigos();
-            int _inimigos_na_localidade_N = _inimigos_na_localidade.length;
-
             // Printando a informação de que há inimigos na localidade.
             System.out.println("Cuidado! Há inimigos nesta localidade: ");
-            for(i = 0; i < _inimigos_na_localidade_N; i++)
-                {
-                System.out.println("\t" +i + " - " +_inimigos_na_localidade[i].obterNome() +" Vida: " +_inimigos_na_localidade[i].obterVida() +"/" +_inimigos_na_localidade[i].obterVidaMaxima());
-                }
 
             // Mudando o estado do jogo para BATALHA.
             GM_estado = GM_Estados.BATALHA;
@@ -427,7 +419,7 @@ public class Game
             }
 
         // Avaliando se o número dado é valido na lista de inimigos.
-        if (index >= 0 && index < _inimigos_da_batalha.length)
+        if (index < 0 && index <= _inimigos_da_batalha.length)
             {
             System.out.println("É necessario dar um numero entre as os inimigos possiveis");
             return(false);
@@ -464,7 +456,7 @@ public class Game
         int N_pocao = GM_Heroi.possuiItemNoInventarioQuantidade(Item.POCAO_DE_CURA);
 
         // Printando informações do herói.
-        System.out.println("Herói: " +GM_Heroi.obterNome() +" Vida: " +GM_Heroi.obterVida() +"/" +GM_Heroi.obterVidaMaxima());
+        System.out.println("\nHerói: " +GM_Heroi.obterNome() +" Vida: " +GM_Heroi.obterVida() +"/" +GM_Heroi.obterVidaMaxima());
         System.out.println("\tItens do herói: Flechas: " +N_flechas +", Bombas: " +N_bombas +", Poções de Cura: " +N_pocao);
         
 
@@ -664,8 +656,12 @@ public class Game
         );
 
         // Cheats. Apenas para agilizar os testes.
-        GM_Heroi.adicionarItemAoInventario(Item.OVO, 15);
-        GM_Heroi.adicionarItemAoInventario(Item.CENOURA, 15);
+        GM_Heroi.adicionarItemAoInventario(Item.OVO, Missao.COLETAR_OVOS.obterQuantidadeNecessaria(Item.OVO));
+        GM_Heroi.adicionarItemAoInventario(Item.CENOURA, Missao.COLETAR_CENOURAS.obterQuantidadeNecessaria(Item.CENOURA));
+        GM_Heroi.completarMissao(Missao.COLETAR_CENOURAS);
+        GM_Heroi.completarMissao(Missao.COLETAR_OVOS);
+
+        GM_Heroi.adicionarItemAoInventario(Item.BOMBA, 5);
 
         // Loop principal do jogo.
         while (GM_estado != GM_Estados.FIM_DE_JOGO)

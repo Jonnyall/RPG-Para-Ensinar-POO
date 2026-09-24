@@ -30,8 +30,8 @@ public enum Missao
     GELATINA_SECRETA(
         "Receita secreta do taberneiro.",
         "Agora que você tem acesso ao depósito da taverna, mate 5 slimes que o taberneiro guarda e traga seus corpos gelatinosos. Com descrição, por favor! Ninguém pode saber como é feita a gelatina do estabelecimento.",
-        new HashMap<Item, Integer>() {{ put(Item.CENOURA, 15); }},
-        new Item[] {},
+        new HashMap<Item, Integer>() {{ put(Item.GELECA_DE_SLIME, 5); }},
+        new Item[] { Item.CHAVE_PARA_OS_FUNDOS},
         new Missao[] {Missao.COLETAR_OVOS, Missao.COLETAR_CENOURAS}
     );
 

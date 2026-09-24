@@ -221,6 +221,13 @@ public class Heroi extends PersonagemQueBatalha
                 }
             }
 
+        // Adicionando a recompensa no inventário do Herói.
+        Item [] recompensas = missao.obterRecompensas();
+        for (Item re : recompensas)
+            {
+            this.inventario_do_heroi.adicionarItem(re);
+            }
+
         // Se por acaso for a missão que o herói está cumprindo, for a que ele está no momento, então aproveita para limpar a missão atual.
         if (this.missao_atual == missao)
             {
@@ -297,6 +304,8 @@ public class Heroi extends PersonagemQueBatalha
         }
     
     
+
+
     // Método para "desenhar" o inventário do herói.
     public void desenharInventario()
         {

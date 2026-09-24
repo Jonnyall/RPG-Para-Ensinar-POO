@@ -22,8 +22,10 @@ public class Slime extends Inimigo
         */
        
         // Chamando o construtor da superclasse (Inimigo) para configurar os atributos do Slime.
-        super("Slime", 50, 5, 2, 10, new Saque[] {
-            new Saque(Item.GELECA_DE_SLIME, 100.00f)
+        super("Slime", 20, 4, 2, 1, new Saque[] {
+            new Saque(Item.GELECA_DE_SLIME, 100.00f),
+            new Saque(Item.POCAO_DE_CURA, 50.00f),
+
         });
         }
 

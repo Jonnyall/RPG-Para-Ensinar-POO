@@ -164,7 +164,6 @@ public class Mundo extends TodasAsCoisas
         });
         }
 
-
     // Método que configura os caminhos entre as localidades de tal forma que o herói possa navegar entre elas.
     private static void configurarCaminhos()
         {
@@ -242,6 +241,18 @@ public class Mundo extends TodasAsCoisas
             """
         );
 
+        // Quando todas as missões estiverem completas
+        taberneiro.adicionarRegraArvoreDecisao(
+            h -> h.verificarMissoesCompletadas(new Missao[]{Missao.COLETAR_OVOS, Missao.COLETAR_CENOURAS, Missao.GELATINA_SECRETA}),
+            """
+            Obrigado pela sua ajuda, herói. 
+            
+            Agora que você possui as chaves para a saída dos fundos, acredito que terá grande sucesso em sua jornada. 
+            
+            Ainda assim, permaneça atento — o caminho à frente guarda perigos inesperados.
+            """
+        );
+
         // Se já cumpriu a missão 1 e 2, mas ainda não aceitou a terceira
         taberneiro.adicionarRegraArvoreDecisao(
             h -> h.verificarMissoesCompletadas(new Missao[]{Missao.COLETAR_CENOURAS, Missao.COLETAR_OVOS}) && h.obterMissaoAtual() != Missao.GELATINA_SECRETA,
@@ -261,18 +272,6 @@ public class Mundo extends TodasAsCoisas
             Então... 
             
             Já conseguiu lidar com os Slimes? Por favor, não revele a ninguém o meu ingrediente secreto.
-            """
-        );
-
-        // Quando todas as missões estiverem completas
-        taberneiro.adicionarRegraArvoreDecisao(
-            h -> h.verificarMissoesCompletadas(new Missao[]{Missao.COLETAR_OVOS, Missao.COLETAR_CENOURAS, Missao.GELATINA_SECRETA}),
-            """
-            Obrigado pela sua ajuda, herói. 
-            
-            Agora que você possui as chaves para a saída dos fundos, acredito que terá grande sucesso em sua jornada. 
-            
-            Ainda assim, permaneça atento — o caminho à frente guarda perigos inesperados.
             """
         );
 

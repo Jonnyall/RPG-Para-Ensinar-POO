@@ -30,13 +30,9 @@ public class GruposInimigos extends TodasAsCoisas
         inimigosInstanciados = new Inimigo[inimigos[indice].length];
         for(int i = 0; i < inimigos[indice].length; i++)
             {
-            // 1. Obtém a classe exata do objeto em tempo de execução
-            Class<?> classeDoInimigo = inimigos[indice][i].getClass();
-
-            // 2. Cria uma nova instância da classe do inimigo usando o construtor padrão
             try
                 {
-                inimigosInstanciados[i] = (Inimigo) classeDoInimigo.getDeclaredConstructor().newInstance();
+                inimigosInstanciados[i] = inimigos[indice][i].getDeclaredConstructor().newInstance();
                 }
             catch (Exception e)
                 {

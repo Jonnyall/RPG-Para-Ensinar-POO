@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.ElementosDeCenario.ElementosCenario;
-import src.Inimigos.Inimigo;
-import src.Inimigos.GruposInimigos;
+import src.Inimigos.*;
+
 
 public class Localidade extends TodasAsCoisas
     {
@@ -120,18 +120,18 @@ public class Localidade extends TodasAsCoisas
     // Metodo para iniciar um grupo de inimigos nesta localidade.
     public void iniciarGrupoInimigos()
         {
-        if (gruposInimigos != null)
+        if (this.gruposInimigos != null)
             {
-            gruposInimigos.instanciarGrupo();
+            this.gruposInimigos.instanciarGrupo();
             }
         }
 
     // Método para limpar os inimigos instanciados nesta localidade.
     public void limparGruposInimigosInstanciados()
         {
-        if (gruposInimigos != null)
+        if (this.gruposInimigos != null)
             {
-            gruposInimigos.limparInimigosInstanciados();
+            this.gruposInimigos.limparInimigosInstanciados();
             }
         }
 
@@ -151,7 +151,7 @@ public class Localidade extends TodasAsCoisas
     // Método para verificar se a localidade possui inimigos.
     public boolean possuiInimigos()
         {
-        return (gruposInimigos != null && !gruposInimigos.grupoVazio());
+        return (this.gruposInimigos != null && !this.gruposInimigos.grupoVazio() && !this.gruposInimigos.todosInimigosDerrotados());
         }
 
     // Método para verificar se todos os inimigos desta localidade foram derrotados.
@@ -176,7 +176,7 @@ public class Localidade extends TodasAsCoisas
     public void iniciarLocalidade()
         {
         // Iniciando os inimigos da localidade.
-        this.iniciarGrupoInimigos();
+        iniciarGrupoInimigos();
         }
 
     public void finalizarLocalidade()
