@@ -28,7 +28,7 @@ public enum Missao
 
     // Missão: ajudar o taberneiro com a sua receita secreta de gelatina
     GELATINA_SECRETA(
-        "Receita secreta do taberneiro.",
+        "Receita secreta do taberneiro",
         "Agora que você tem acesso ao depósito da taverna, mate 5 slimes que o taberneiro guarda e traga seus corpos gelatinosos. Com descrição, por favor! Ninguém pode saber como é feita a gelatina do estabelecimento.",
         new HashMap<Item, Integer>() {{ put(Item.GELECA_DE_SLIME, 5); }},
         new Item[] { Item.CHAVE_PARA_OS_FUNDOS},

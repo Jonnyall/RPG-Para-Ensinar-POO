@@ -15,8 +15,8 @@ public class Game
     // Enum para administrar os estados do game.
     public enum GM_Estados
         {
-        LOCALIDADE, // Quando a logica do jogo está contina na navegação entre salas.
-        CONVERSANDO,// Quando a logica do jogo estiver contina na interação com um NPC (dialogando).
+        LOCALIDADE, // Quando a lógica do jogo está contida na navegação entre salas.
+        CONVERSANDO,// Quando a lógica do jogo estiver contínua na interação com um NPC (dialogando).
         BATALHA, // Quando o jogador estiver batalhando com inimigos.
         FIM_DE_JOGO; // Quando o jogo terminou.
         }
@@ -34,22 +34,20 @@ public class Game
     
     // Pelas localidades.
     static void interarLocalidade()
-        {
-        int i;
-        
+        {   
         // Printando a informação da sala para o jogador.
         
-        // Obtendo a localidade atual do herói.
-        Localidade _localidade_atual = GM_Heroi.obterLocalidade();
+        // Obtendo a localidade atual do Herói.
+        Localidade localidade_atual = GM_Heroi.obterLocalidade();
 
-        // O nome dá localidade.
-        System.out.println("Você está em: " +_localidade_atual.obterNome());
+        // O nome da localidade.
+        System.out.println("Você está em: " +localidade_atual.obterNome());
 
-        // Descrevendo a sala.
-        System.out.println("\n" +_localidade_atual.obterDescricao() +"\n");
+        // Descrevendo a localidade.
+        System.out.println("\n" +localidade_atual.obterDescricao() +"\n");
 
         // Verificando se há inimigos na localidade.
-        if (_localidade_atual.possuiInimigos())
+        if (localidade_atual.possuiInimigos())
             {
             // Printando a informação de que há inimigos na localidade.
             System.out.println("Cuidado! Há inimigos nesta localidade: ");
@@ -59,27 +57,25 @@ public class Game
             }
         else
             {
-
             // Obtendo as NPCS e elementos do cenário.
-            NPC[] _npc_na_localidade            = _localidade_atual.obterNPC();
-            int _npc_na_localidade_N = _npc_na_localidade.length;
-            ElementosCenario[] _elc_na_localidade = _localidade_atual.obterElementosCenario();
-            int _elc_na_localidade_N = _elc_na_localidade.length;
+            NPC[] npc_na_localidade            = localidade_atual.obterNPC();
+            int _npc_na_localidade_N = npc_na_localidade.length;
+            ElementosCenario[] elc_na_localidade = localidade_atual.obterElementosCenario();
+            int elc_na_localidade_N = elc_na_localidade.length;
 
-            // Printando as opções de interação para o jogador.
+            // Printando as opções para o jogador.
 
             // Pulando uma linha.
             System.out.println("\n");
 
-            // Apenas mostrando essa informação se existirem NPCs na sala.
+            // Mostrando as NPCs, caso a localidade possua alguma.
             if (_npc_na_localidade_N > 0)
                 {
-                // As NPCs
-                System.out.println("O Herói pode falar com: (Falar)");
+                System.out.println("O Herói pode falar com: (Falar <n° da NPC>)");
 
-                for(i = 0; i < _npc_na_localidade_N; i++)
+                for(int i = 0; i < _npc_na_localidade_N; i++)
                     {
-                    System.out.println("\t" +i + " - " +_npc_na_localidade[i].obterNome());
+                    System.out.println("\t" +i + " - " +npc_na_localidade[i].obterNome());
                     }        
                 
                 System.out.println("\n");
@@ -87,14 +83,13 @@ public class Game
 
 
             // Apenas mostrando essa informação se existirem objetos interativos na sala.
-            if (_elc_na_localidade_N > 0)
+            if (elc_na_localidade_N > 0)
                 {
-                // Os elementos de cenário.
-                System.out.println("Também há alguns objetos para o herói interagir: (Interagir)");
+                System.out.println("Também há alguns objetos para o herói interagir: (Interagir <n° do objeto>)");
 
-                for(i = 0; i < _elc_na_localidade_N; i++)
+                for(int i = 0; i < elc_na_localidade_N; i++)
                     {
-                    System.out.println("\t" +i + " - " +_elc_na_localidade[i].obterNome() +"\n" +"\t\t" +_elc_na_localidade[i].obterDescricao());
+                    System.out.println("\t" +i + " - " +elc_na_localidade[i].obterNome() +"\n" +"\t\t" +elc_na_localidade[i].obterDescricao());
                     }
                 
                 System.out.println("\n");
@@ -102,48 +97,47 @@ public class Game
 
 
             // Printando as saídas da localidade para o herói.
-            Localidade[] _saidas = _localidade_atual.obterCaminhos();
-            int _saidas_N = _saidas.length;
+            Localidade[] saidas = localidade_atual.obterCaminhos();
+            int _saidas_N = saidas.length;
 
-            // O Heroi pode proseguir por: (Caminhar)
-            System.out.println("O Héroi pode proseguir por: (Caminhar)");
+            System.out.println("O Héroi pode proseguir por: (Caminhar <n° do caminho>)");
 
-            for(i = 0; i < _saidas_N; i++)
+            for(int i = 0; i < _saidas_N; i++)
                 {
-                System.out.println("\t" +i +" - " +_saidas[i].obterNome() +"\n" +"\t\t" +_saidas[i].obterDescricao());
+                System.out.println("\t" +i +" - " +saidas[i].obterNome() +"\n" +"\t\t" +saidas[i].obterDescricao());
                 }
 
-            //Lógica de leitura do teclado aqui.
-            String _entrada_do_heroi = GM_Scanner.nextLine();
-            String[] _entrada_do_heroi_argv = _entrada_do_heroi.split(" ");
+            // Lógica de leitura do teclado.
+            String entrada_do_heroi = GM_Scanner.nextLine();
+            String[] entrada_do_heroi_argv = entrada_do_heroi.split(" ");
 
-            //Primeiro argumento.
-            String _primeiro_argumento = _entrada_do_heroi_argv[0];
+            // Primeiro argumento.
+            String primeiro_argumento = entrada_do_heroi_argv[0];
 
-            //Avaliando a entrada.
+            // Avaliando a entrada.
             //Case "Falar":
-            if (_primeiro_argumento.equalsIgnoreCase("Falar"))
+            if (primeiro_argumento.equalsIgnoreCase("Falar"))
                 {
                 // Se não houver NPCs na sala.
                 if (_npc_na_localidade_N == 0)
                     {
-                    System.out.println("Não há NPCs na sala para o herói conversar...");
+                    System.out.println("Não há NPCs na sala para o Herói conversar...");
                     }
                 else
                     {
                     // Antes, é preciso verificar se o segundo argumento foi dado.
-                    if (_entrada_do_heroi_argv.length >= 2)
+                    if (entrada_do_heroi_argv.length >= 2)
                         {
                         try
                             {
-                            int indiceNPC = Integer.parseInt(_entrada_do_heroi_argv[1]);
+                            int indiceNPC = Integer.parseInt(entrada_do_heroi_argv[1]);
 
                             // Verifica se é inteiro >= 0 e dentro do range de NPCs.
                             if (indiceNPC >= 0 && indiceNPC < _npc_na_localidade_N)
                                 {
                                 // Interação com o NPC escolhido.
-                                System.out.println("O Héroi irá falar com " + _npc_na_localidade[indiceNPC].obterNome());
-                                GM_NPC_Agora = _npc_na_localidade[indiceNPC];
+                                System.out.println("O Héroi irá falar com " + npc_na_localidade[indiceNPC].obterNome());
+                                GM_NPC_Agora = npc_na_localidade[indiceNPC];
 
                                 // Mudando o estado do jogo.
                                 GM_estado = GM_Estados.CONVERSANDO;
@@ -165,28 +159,28 @@ public class Game
                     }
                 }
             //Case "Interagir":
-            else if (_primeiro_argumento.equalsIgnoreCase("Interagir"))
+            else if (primeiro_argumento.equalsIgnoreCase("Interagir"))
                 {
                 // Se não houver elementos de cenário na sala.
-                if (_elc_na_localidade_N == 0)
+                if (elc_na_localidade_N == 0)
                     {
                     System.out.println("Não há objetos interativos na sala...");
                     }
                 else
                     {
                     // Antes, é preciso verificar se o segundo argumento foi dado.
-                    if (_entrada_do_heroi_argv.length >= 2)
+                    if (entrada_do_heroi_argv.length >= 2)
                         {
                         try
                             {
-                            int indiceObj = Integer.parseInt(_entrada_do_heroi_argv[1]);
+                            int indiceObj = Integer.parseInt(entrada_do_heroi_argv[1]);
 
                             // Verifica se é inteiro >= 0 e dentro do range de objetos.
-                            if (indiceObj >= 0 && indiceObj < _elc_na_localidade_N)
+                            if (indiceObj >= 0 && indiceObj < elc_na_localidade_N)
                                 {
                                 // Interação com o objeto escolhido.
-                                System.out.println("O Héroi irá interagir com " + _elc_na_localidade[indiceObj].obterNome());
-                                _elc_na_localidade[indiceObj].interagir(GM_Heroi);
+                                System.out.println("O Héroi irá interagir com " + elc_na_localidade[indiceObj].obterNome());
+                                elc_na_localidade[indiceObj].interagir(GM_Heroi);
                                 }
                             else
                                 {
@@ -205,21 +199,21 @@ public class Game
                     }
                 }
             //Case "Caminhar":
-            else if (_primeiro_argumento.equalsIgnoreCase("Caminhar"))
+            else if (primeiro_argumento.equalsIgnoreCase("Caminhar"))
                 {
                 // Antes, é preciso verificar se o segundo argumento foi dado.
-                if (_entrada_do_heroi_argv.length >= 2)
+                if (entrada_do_heroi_argv.length >= 2)
                     {
                     try
                         {
-                        int indiceSaida = Integer.parseInt(_entrada_do_heroi_argv[1]);
+                        int indiceSaida = Integer.parseInt(entrada_do_heroi_argv[1]);
 
                         // Verifica se é inteiro >= 0 e dentro do range de saídas.
                         if (indiceSaida >= 0 && indiceSaida < _saidas_N)
                             {
                             // Caminhar para a saída escolhida.
-                            System.out.println("O Héroi irá  para " + _saidas[indiceSaida].obterNome());
-                            GM_Heroi.mudarLocalidade(_saidas[indiceSaida]);
+                            System.out.println("O Héroi irá  para " + saidas[indiceSaida].obterNome());
+                            GM_Heroi.mudarLocalidade(saidas[indiceSaida]);
                             }
                         else
                             {
@@ -237,12 +231,12 @@ public class Game
                     }
                 }
             //Case "Inventario"
-            else if (_primeiro_argumento.equalsIgnoreCase("Inventario"))
+            else if (primeiro_argumento.equalsIgnoreCase("Inventario"))
                 {
                 GM_Heroi.desenharInventario();
                 }
             //Case "Missoes"
-            else if (_primeiro_argumento.equalsIgnoreCase("Missoes"))
+            else if (primeiro_argumento.equalsIgnoreCase("Missoes"))
                 {
                 GM_Heroi.desenharMissoes();
                 }
@@ -265,34 +259,34 @@ public class Game
 
         // Mostrando para o usuario quais são os possiveis comandos neste momento.
         if (npc_tem_missoes)
-            System.out.println("Voltar\\Missao <n° da missão>");
+            System.out.println("Voltar/Missao <n° da missão>");
         else
             System.out.println("Voltar");
 
         // Lógica de leitura do teclado aqui.
-        String _entrada_do_heroi = GM_Scanner.nextLine();
-        String[] _entrada_do_heroi_argv = _entrada_do_heroi.split(" ");
+        String entrada_do_heroi = GM_Scanner.nextLine();
+        String[] entrada_do_heroi_argv = entrada_do_heroi.split(" ");
 
-         //Primeiro argumento.
-        String _primeiro_argumento = _entrada_do_heroi_argv[0];
+        // Primeiro argumento.
+        String primeiro_argumento = entrada_do_heroi_argv[0];
 
         //Avaliando a entrada.
         //Case "Missao":
-        if (_primeiro_argumento.equalsIgnoreCase("Missao"))
+        if (primeiro_argumento.equalsIgnoreCase("Missao"))
             {
-            // Primeiro, pergunta-se se a NPC possui missões.
-            if (npc_tem_missoes)
+            // Primeiro, pergunta-se se a NPC não possui missões.
+            if (!npc_tem_missoes)
                 {
                 System.out.println(GM_NPC_Agora.obterNome() + " não possui missões...");
                 }
             else
                 {
                 // Antes, é preciso verificar se o segundo argumento foi dado.
-                if (_entrada_do_heroi_argv.length >= 2)
+                if (entrada_do_heroi_argv.length >= 2)
                     {
                     try
                         {
-                        int indiceNPC = Integer.parseInt(_entrada_do_heroi_argv[1]);
+                        int indiceNPC = Integer.parseInt(entrada_do_heroi_argv[1]);
 
                         Missao missao_olhada = GM_NPC_Agora.obterMissao(indiceNPC);
 
@@ -318,28 +312,28 @@ public class Game
                             {
                             // Então resta apenas duas possibilidades.
                             // Ou o herói está tentando pegar uma nova missão, ou o herói está visualizando uma missão que está em curso.
-                            boolean  _tentando_nova_missao = (GM_Heroi.obterMissaoAtual() == null);
+                            boolean  tentando_nova_missao = (GM_Heroi.obterMissaoAtual() == null);
 
                             // Também deve ser avaliado se o herói já possui todos os itens que a missão exige.
-                            boolean _possue_todos_requisitos = (GM_Heroi.possuiRequisitosMissao(missao_olhada));
+                            boolean possue_todos_requisitos = (GM_Heroi.possuiRequisitosMissao(missao_olhada));
 
-                            // Apenas uma variavel para ficar "preso no loop"
-                            boolean _resposta_valida = false;
+                            // Apenas uma variável para o usuário ficar "preso no loop" até o usuário dar uma resposta válida.
+                            boolean resposta_valida = false;
 
-                            while (!_resposta_valida)
+                            while (!resposta_valida)
                                 {
                                 // Printando a missão até o usuário fazer uma escolha possível.
                                 missao_olhada.desenhar();
 
                                 // Se o Herói está tentando aceitar uma nova missão, então só se pode existir duas opções: "Aceitar" ou "Voltar".
-                                if (_tentando_nova_missao)
+                                if (tentando_nova_missao)
                                     {
                                     System.out.println("\nAceitar/Voltar?\n");
                                     }
                                 else
                                     {
                                     // Se o Herói não possui todos os requisitos, as opções possíveis são "Cancelar" ou "Voltar".
-                                    if (! _possue_todos_requisitos)
+                                    if (!possue_todos_requisitos)
                                         {
                                         System.out.println("\nCancelar/Voltar?\n");
                                         }
@@ -355,37 +349,36 @@ public class Game
 
                                 if (_entrada.equalsIgnoreCase("Voltar"))
                                     {
-                                    //Apenas Voltando para o estado anterior. (falando com a NPC).
-                                    
-                                    _resposta_valida = true;
+                                    // Apenas Voltando para o estado anterior. (falando com a NPC).
+                                    resposta_valida = true;
                                     }
-                                else if (_entrada.equalsIgnoreCase("Aceitar") && _tentando_nova_missao)
+                                else if (_entrada.equalsIgnoreCase("Aceitar") && tentando_nova_missao)
                                     {
-                                    // Aceitando a missao.
+                                    // Aceitando a missão.
                                     GM_Heroi.aceitaMissao(missao_olhada);
 
-                                    _resposta_valida = true;
+                                    resposta_valida = true;
                                     }
-                                else if (_entrada.equalsIgnoreCase("Cancelar") && !_tentando_nova_missao && !_possue_todos_requisitos)
+                                else if (_entrada.equalsIgnoreCase("Cancelar") && !tentando_nova_missao && !possue_todos_requisitos)
                                     {
                                     // Cancelando a missão atual.
                                     GM_Heroi.cancelaMissaoAtual();
 
-                                    _resposta_valida = true;
+                                    resposta_valida = true;
                                     }
-                                else if (_entrada.equalsIgnoreCase("Completar") && !_tentando_nova_missao && _possue_todos_requisitos)
+                                else if (_entrada.equalsIgnoreCase("Completar") && !tentando_nova_missao && possue_todos_requisitos)
                                     {
                                     // Completando a missão atual.
                                     GM_Heroi.completarMissao(missao_olhada);
 
-                                    _resposta_valida = true;
+                                    resposta_valida = true;
                                     }
                                 else
                                     {
                                     //Opisão invalida.
                                     System.out.println("Opção inválida!");
 
-                                    _resposta_valida = false;
+                                    resposta_valida = false;
                                     }
                                 }
                             }
@@ -402,7 +395,7 @@ public class Game
                 }
             }
         //Case "Voltar":
-        else if (_primeiro_argumento.equalsIgnoreCase("Voltar"))
+        else if (primeiro_argumento.equalsIgnoreCase("Voltar"))
             {
             // "Parando" de conversar com o NPC e voltando para o estádo anterior.
             GM_NPC_Agora = null;
@@ -419,7 +412,7 @@ public class Game
     static boolean avaliarEntradaDeAtaque(String index_text)
         {
         // Obtendo os inimigos da batalha.
-        Inimigo[] _inimigos_da_batalha = GM_Heroi.obterLocalidade().obterInimigos();
+        Inimigo[] inimigos_da_batalha = GM_Heroi.obterLocalidade().obterInimigos();
 
         // Avaliando se o segundo argumento é um número inteiro válido.
         int index;
@@ -434,14 +427,14 @@ public class Game
             }
 
         // Avaliando se o número dado é valido na lista de inimigos.
-        if (index < 0 && index <= _inimigos_da_batalha.length)
+        if (index < 0 && index <= inimigos_da_batalha.length)
             {
-            System.out.println("É necessario dar um numero entre as os inimigos possiveis");
+            System.out.println("É necessário dar um número entre os inimigos possíveis.");
             return(false);
             }
 
         // Terceira avaliação, se o inimigo escolhido está vivo.
-        if (_inimigos_da_batalha[index].obterVida() <= 0)
+        if (inimigos_da_batalha[index].obterVida() <= 0)
             {
             System.out.println("O inimigo escolhido já está morto.");
             return(false);
@@ -452,75 +445,86 @@ public class Game
         }
     static void interarBatalha()
         {
-        // Aqui será implementada a lógica de batalha.
-        
         // Obtendo os inimigos da batalha.
-        Inimigo[] _inimigos_da_batalha = GM_Heroi.obterLocalidade().obterInimigos();
+        Inimigo[] inimigos_da_batalha = GM_Heroi.obterLocalidade().obterInimigos();
 
         // Printando informações da batalhas.
         System.out.println("O herói está batalhando com os seguintes inimigos: ");
-        for (int i = 0; i < _inimigos_da_batalha.length; i++)
+        for (int i = 0; i < inimigos_da_batalha.length; i++)
             {
-            Inimigo inim = _inimigos_da_batalha[i];    
-            System.out.println("\t" +i + " - " +inim.obterNome() +" Vida: " +inim.obterVida() +"/" +inim.obterVidaMaxima());
+            Inimigo inim = inimigos_da_batalha[i];
+            
+            String inim_text = "\t" +i + " - " +inim.obterNome();
+            if (inim.obterVida() >= 0)
+                {
+                inim_text += " Vida: " +inim.obterVida() +"/" +inim.obterVidaMaxima();
+                }
+            else
+                {
+                inim_text += " Vida: " +"XX/" +inim.obterVidaMaxima();
+                }
+            
+            System.out.println(inim_text);
             }
 
-        // Obtendo os itens do herói.
+        // Apenas pulando uma linha.
+        System.out.println("\n");
+
+
+        // Obtendo os itens do Herói.
         int N_flechas = GM_Heroi.possuiItemNoInventarioQuantidade(Item.FLECHA);
         int N_bombas = GM_Heroi.possuiItemNoInventarioQuantidade(Item.BOMBA);
         int N_pocao = GM_Heroi.possuiItemNoInventarioQuantidade(Item.POCAO_DE_CURA);
 
-        // Printando informações do herói.
+        // Printando informações do Herói.
         System.out.println("\nHerói: " +GM_Heroi.obterNome() +" Vida: " +GM_Heroi.obterVida() +"/" +GM_Heroi.obterVidaMaxima());
         System.out.println("\tItens do herói: Flechas: " +N_flechas +", Bombas: " +N_bombas +", Poções de Cura: " +N_pocao);
         
 
         // Printando as opções de ação do herói.
-        System.out.println("O herói pode atacar um inimigo: (Atacar <numero_do_inimigo>)");
+        System.out.println("O Herói pode atacar um inimigo: (Atacar <numero_do_inimigo>)");
 
-        // Printando a opçao de usar uma flecha.
+        // Printando a opção de usar uma flecha.
         if (N_flechas > 0)
             {
-            System.out.println("O herói pode usar uma flecha: (Flecha <numero_do_inimigo>)");
+            System.out.println("O Herói pode usar uma flecha: (Flecha <numero_do_inimigo>)");
             }
 
-        // Printando a opçao de usar uma bomba.
+        // Printando a opção de usar uma bomba.
         if (N_bombas > 0)
             {
-            System.out.println("O herói pode usar uma bomba: (Bomba)");
+            System.out.println("O Herói pode usar uma bomba: (Bomba)");
             }
         
-        // Printando a opçao de usar uma poção decura.
+        // Printando a opção de usar uma poção de cura.
         if (N_pocao > 0)
             {
-            System.out.println("O herói pode usar uma poção decura: (Pocao)");
+            System.out.println("O Herói pode usar uma poção de cura: (Pocao)");
             }
 
-        // Apenas uma flag para saber se o herói já usou o seu turno.
+        // Apenas uma flag para o sistema saber se o herói já usou o seu turno.
         boolean heroi_ja_usou_turno = false;
 
         // Lendo a entrada do herói.
-        String _entrada_do_heroi = GM_Scanner.nextLine();
-        String[] _entrada_do_heroi_argv = _entrada_do_heroi.split(" ");
+        String entrada_do_heroi = GM_Scanner.nextLine();
+        String[] entrada_do_heroi_argv = entrada_do_heroi.split(" ");
 
         // Case "Atacar":
-        if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Atacar"))
+        if (entrada_do_heroi_argv[0].equalsIgnoreCase("Atacar"))
             {
-            // Aqui será implementada a lógica de ataque do herói.
-
             // Antes, é preciso verificar se o segundo argumento foi dado.
-            if (_entrada_do_heroi_argv.length >= 2)
+            if (entrada_do_heroi_argv.length >= 2)
                 {
-                // Avaliando se a entrada do herói é válida.
-                if (avaliarEntradaDeAtaque(_entrada_do_heroi_argv[1]))
+                // Avaliando se a entrada do Herói foi válida.
+                if (avaliarEntradaDeAtaque(entrada_do_heroi_argv[1]))
                     {
                     // Obtendo o índice do inimigo a ser atacado.
-                    int indice_inimigo = Integer.parseInt(_entrada_do_heroi_argv[1]);
+                    int indice_inimigo = Integer.parseInt(entrada_do_heroi_argv[1]);
 
                     // Obtendo o inimigo a ser atacado.
-                    Inimigo inimigo_a_ser_atacado = _inimigos_da_batalha[indice_inimigo];
+                    Inimigo inimigo_a_ser_atacado = inimigos_da_batalha[indice_inimigo];
 
-                    // O herói ataca o inimigo escolhido.
+                    // O Herói ataca o inimigo escolhido.
                     GM_Heroi.darEspadada(inimigo_a_ser_atacado);
 
                     // Se o inimigo atacado morreu, então ele deve dropar os itens dele.
@@ -528,7 +532,7 @@ public class Game
                         {
                         System.out.println("O inimigo " +inimigo_a_ser_atacado.obterNome() +" foi derrotado!");
                         
-                        // O inimigo atacado morreu, então ele deve dropar os itens dele.
+                        // O inimigo atacado morreu, então ele deve dropar os itens.
                         inimigo_a_ser_atacado.soltarItens(GM_Heroi);
                         }
 
@@ -542,23 +546,21 @@ public class Game
                 }
             }
         // Case "Flecha":
-        else if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Flecha"))
+        else if (entrada_do_heroi_argv[0].equalsIgnoreCase("Flecha"))
             {
-            // Aqui será implementada a lógica de ataque do herói com flecha.
-
             // Antes, é preciso verificar se o segundo argumento foi dado.
-            if (_entrada_do_heroi_argv.length >= 2)
+            if (entrada_do_heroi_argv.length >= 2)
                 {
                 // Avaliando se a entrada do herói é válida.
-                if (avaliarEntradaDeAtaque(_entrada_do_heroi_argv[1]))
+                if (avaliarEntradaDeAtaque(entrada_do_heroi_argv[1]))
                     {
                     // Obtendo o índice do inimigo a ser atacado.
-                    int indice_inimigo = Integer.parseInt(_entrada_do_heroi_argv[1]);
+                    int indice_inimigo = Integer.parseInt(entrada_do_heroi_argv[1]);
 
                     // Obtendo o inimigo a ser atacado.
-                    Inimigo inimigo_a_ser_atacado = _inimigos_da_batalha[indice_inimigo];
+                    Inimigo inimigo_a_ser_atacado = inimigos_da_batalha[indice_inimigo];
 
-                    // O herói ataca o inimigo escolhido com flecha.
+                    // O Herói ataca o inimigo escolhido com flecha.
                     GM_Heroi.darFlechada(inimigo_a_ser_atacado);
 
                     // Se o inimigo atacado morreu, então ele deve dropar os itens dele.
@@ -580,17 +582,15 @@ public class Game
                 }
             }
         // Case "Bomba":
-        else if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Bomba"))
+        else if (entrada_do_heroi_argv[0].equalsIgnoreCase("Bomba"))
             {
-            // Aqui será implementada a lógica de ataque do herói com bomba.
-
-            // O herói ataca todos os inimigos com bomba.
-            GM_Heroi.lancarBomba(_inimigos_da_batalha);
+            // O Herói ataca todos os inimigos com bomba.
+            GM_Heroi.lancarBomba(inimigos_da_batalha);
 
             // Se algum inimigo atacado morreu, então ele deve dropar os itens dele.
-            for (int i = 0; i < _inimigos_da_batalha.length; i++)
+            for (int i = 0; i < inimigos_da_batalha.length; i++)
                 {
-                Inimigo inimigo_a_ser_atacado = _inimigos_da_batalha[i];
+                Inimigo inimigo_a_ser_atacado = inimigos_da_batalha[i];
 
                 if (inimigo_a_ser_atacado.obterVida() <= 0)
                     {
@@ -601,16 +601,16 @@ public class Game
                     }
                 }
 
-            // O heroi já fez o seu movimento.
+            // O Herói já fez o seu movimento.
             heroi_ja_usou_turno = true;
             }
         // Case "Pocao":
-        else if (_entrada_do_heroi_argv[0].equalsIgnoreCase("Pocao"))
+        else if (entrada_do_heroi_argv[0].equalsIgnoreCase("Pocao"))
             {
-            // Aqui será implementada a lógica de cura do herói com poção.
+            // Chamando o método do herói responsável pelo uso da poção de cura.
             GM_Heroi.beberPocaoDeCura();
 
-            // O heroi já fez o seu movimento.
+            // O Herói já fez o seu movimento.
             heroi_ja_usou_turno = true;
             }
         else
@@ -621,18 +621,18 @@ public class Game
         // Se o herói já usou o seu turno, então os inimigos podem fazer os movimentos deles.
         if (heroi_ja_usou_turno)
             {
-            // Aqui será implementada a lógica de ataque dos inimigos.
-            for (int i = 0; i < _inimigos_da_batalha.length; i++)
+            // Cada inimigo presente irá fazer seu movimento.
+            for (int i = 0; i < inimigos_da_batalha.length; i++)
                 {
-                Inimigo inimigo = _inimigos_da_batalha[i];
+                Inimigo inimigo = inimigos_da_batalha[i];
 
-                // Apenas atacando se o inimigo estiver vivo.
+                // O inimigo só pode fazer seu movimento caso esteja vivo.
                 if (inimigo.obterVida() > 0)
                     {
                     inimigo.atacarHeroi(GM_Heroi);
                     
                     // Esperando um tempo.
-
+                    // sleep(2.50 segundos)
                     }
                 }
             }
@@ -642,6 +642,7 @@ public class Game
             {
             System.out.println("Todos os inimigos foram derrotados!");
 
+            // Voltando ao estado anterior.
             GM_estado = GM_Estados.LOCALIDADE;
             }
         }
@@ -649,13 +650,10 @@ public class Game
     // Método main da classe.
     public static void main(String[] args)
         {
-		
-        //Inicializando o "mundo" do RPG.
+        //Inicializando o "mundo" do nosso RPG.
         Mundo.inicializar();
 
-        // Criando o heroi.
-        
-        /*
+        /* Criando o heroi.
         Ficha do heroi: Nome, Vida, Ataque, Defesa, Sorte.
             Nome: Herói
             Vida: 100
@@ -665,7 +663,7 @@ public class Game
         */
         GM_Heroi = new Heroi();
 
-        //O Herói começa no quarto.
+        // O Herói começa no quarto dele.
         GM_Heroi.mudarLocalidade(
             Mundo.GM_Localidades.QUARTO_DO_HEROI.retornar()
         );
@@ -675,7 +673,6 @@ public class Game
         GM_Heroi.adicionarItemAoInventario(Item.CENOURA, Missao.COLETAR_CENOURAS.obterQuantidadeNecessaria(Item.CENOURA));
         GM_Heroi.completarMissao(Missao.COLETAR_CENOURAS);
         GM_Heroi.completarMissao(Missao.COLETAR_OVOS);
-
         GM_Heroi.adicionarItemAoInventario(Item.BOMBA, 5);
 
         // Loop principal do jogo.
@@ -685,25 +682,20 @@ public class Game
             switch (GM_estado)
                 {
                 case LOCALIDADE:
-                    
-                    //
                     interarLocalidade();
-
                 break;
             
                 case CONVERSANDO:
-
                     interarNPC();
-
                 break;
 
                 case BATALHA:
                     
-                    // Aqui seria implementada a lógica de batalha.
                     interarBatalha();
+                break;
 
                 default:
-                    break;
+                break;
                 }
         
             // Apenas pulando algumas linhas. (estética)

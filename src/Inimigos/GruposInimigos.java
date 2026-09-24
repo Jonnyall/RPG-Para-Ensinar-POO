@@ -11,7 +11,7 @@ public class GruposInimigos extends TodasAsCoisas
     // Inimigos que podem aparecer juntos em uma batalha. (objetos)
     private Class<? extends Inimigo>[][] inimigos;
 
-    // O array que guarda as intancias dos inimigos. Não os objetos.
+    // O array que guarda as instâncias dos inimigos. (Não os objetos).
     private Inimigo[] inimigosInstanciados;
 
     // Construtor da classe.
@@ -20,7 +20,7 @@ public class GruposInimigos extends TodasAsCoisas
         this.inimigos = inimigos;
         }
 
-    // Método que sortea um grupo de inimigos aleatoriamente e depois os intancia.
+    // Método que sorteia um grupo de inimigos aleatoriamente e depois os instancia.
     public void instanciarGrupo()
         {
         // Sorteando um grupo de inimigos aleatoriamente.
@@ -69,6 +69,7 @@ public class GruposInimigos extends TodasAsCoisas
                 return(false);
                 }
             }
+
         return(true);
         }
     

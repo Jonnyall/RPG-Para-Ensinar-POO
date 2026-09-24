@@ -4,17 +4,17 @@ import java.util.function.Predicate;
 
 public class NPC extends Personagem implements Interagivel
     {
-    // Esta classe representa os NPCs do jogo, ou personagem que passaram missãoes para o jogador (Quests).
+    // Esta classe representa os NPCs do jogo, personagem que podem ou não passar missãoes para o jogador (Quests).
     
     // Os atributos do NPC.
 
-    // A missão que o NPC pode passar para o jogador. Um array, uma vez que uma NPC pode possuir mais de uma missão ao mesmo tempo.
+    // As missoões que o NPC pode passar para o jogador. Um array, uma vez que uma NPC pode possuir mais de uma missão ao mesmo tempo.
     private Missao[] misssoes;
 
     // Estrutura responsável pela "árvore de decisão" dinâmica — que significa, em cada instância, possuir uma diferente — do diálogo da NPC.
     private ArvoreDialogo arvore_dialogo;
 
-    // Construtor da classe.
+    // Método Construtor
     public NPC(String nome, Missao[] misssoes)
         {
         // Atribuindo o nome do NPC.
@@ -50,10 +50,10 @@ public class NPC extends Personagem implements Interagivel
         }
 
     // Método para passar a missão para o heroi.
-    public void passarMissao(int numere_da_missao, Heroi heroi)
-        {
+    // public void passarMissao(int numere_da_missao, Heroi heroi)
+    //     {
         
-        }
+    //     }
 
     // Método para "perguntar" se a NPC possui missões.
     public boolean possueMissoes()
@@ -81,14 +81,14 @@ public class NPC extends Personagem implements Interagivel
     @Override
     public void interagir(Heroi heroi)
         {
-        // Lógica para interagir com o NPC, como iniciar uma conversa ou aceitar uma missão.
+        // Lógica para interagir com o NPC, como iniciar uma conversa ou aceitar e mostrar uma missão.
         System.out.println("Você está interagindo com o NPC:\n" + this.obterNome());
         
         // Printando o que ele diz para o usuário.
         System.out.println("Ele(a) diz:" +this.arvore_dialogo.obterDialogo(heroi) +"\n");
         
-        // Mostrando as missões apenas se O NPC em questão possuir missões.
-        if ( this.possueMissoes() )
+        // Mostrando as missões apenas se o NPC em questão possuir alguma.
+        if ( possueMissoes() )
             {
             System.out.println("\t***MISSÔES***\n");
             
